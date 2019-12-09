@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-09 08:57
+#+date:2019-12-09 09:38
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.3
+#+macro:version Version 0.0.4
 
 #+texinfo: @insertcopying
 
@@ -511,6 +511,57 @@ you my experiences on this subject and hopefully give you a more detailed
 picture.
 
 ** Setting up Git
+
+Git Objectives and Outcomes
+
+At the end of this lesson you should have set up Git on your computer. At the
+end of this lesson, you will be able to:
+
+- Set up a Git repository and perform basic Git operations
+
+- Set up and use online Git repositories
+
+*** Setting up your Development Environment
+
+{{{heading(Software Requirements)}}}
+
+1. Text editor of your choice: Any text editor that you are already familiar
+   with can be used for editing the project files.  I will be using Visual
+   Studio Code (https://code.visualstudio.com/) as the editor of choice in this
+   specialization.  You may also consider other editors such as Brackets
+   (http://brackets.io/), Sublime Text (http://www.sublimetext.com/), or Atom
+   (https://atom.io/).
+
+2. Browser of your choice: You may use your preferred browser.  I will be using
+   Chrome as the browser in all the exercises.  All the exercises and
+   assignments in this course have been tested using Chrome v. 46.  Please note
+   that not all browsers may support all the HTML5 features to the same extent.
+   You might encounter problems when using other browsers.  I strongly urge you
+   to use the latest Chrome browser for the exercises and assignments in this
+   course so that any problems are minimized.
+
+3. Command line shell: Familiarity with the command-line shell will be
+   essential for the exercises.  In Windows a cmd window or power shell with
+   admin privileges would be needed.  On a Mac or in Linux, a terminal window
+   can be used.  Please get familiar with the "sudo" command in OS X and Linux.
+
+4. Files required for the exercises: We will provide additional starter files
+   for the exercises wherever needed.  Links to download the files will be
+   provided inline in the exercise instructions that follow each exercise
+   video.  Please download the files provided there, if any, before beginning
+   the exercise.  The links are also available through the Additional Resources
+   of the specific lesson.
+
+
+*Note*: Please remember to retain the folders and all the files that you create
+in the exercises.  Further exercises will build upon the files that you create
+in the preceding exercises.  DO NOT DELETE the files at the end of the
+exercises, unless otherwise instructed.  You may wish to set up your exercise
+folder as a Git repository and commit the files to the repository at the end of
+each exercise.  Brief instructions on using Git are available later in this
+lesson.
+
+*** Exercise---Video---Setting Up Git
 
 ** Basic Git Commands
 
