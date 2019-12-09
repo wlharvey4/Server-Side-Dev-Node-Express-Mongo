@@ -1,0 +1,139 @@
+# -*- mode:org; -*-
+
+#+title:Server-Side Development with NodeJS, Express, and MongoDB
+#+author:The Hong Kong University of Science and Technology
+#+date:2019-12-08 21:45
+#+subtitle: {{{version}}} {{{date}}}
+#+macro:version Version 0.0.1
+
+#+texinfo: @insertcopying
+
+* About the Course
+:PROPERTIES:
+:unnumbered: t
+:END:
+
+This course deals with all things server-side.  We base the entire course
+around the NodeJS platform.  We start with a brief overview of the Web
+protocols: HTTP and HTTPS.  We examine NodeJS and NodeJS modules: Express for
+building web servers.  On the database side, we review basic CRUD operations,
+NoSQL databases, in particular MongoDB and Mongoose for accessing MongoDB from
+NodeJS.  We examine the REST concepts and building a RESTful API.  We touch
+upon authentication and security. Finally we review backend as a service (BaaS)
+approaches, including mobile BaaS, both open-source and commercial BaaS
+services.
+
+At the end of this course, you will be able to:
+
+- Demonstrate an understanding of server-side concepts, CRUD and REST
+
+- Build and configure a backend server using NodeJS framework
+
+- Build a RESTful API for the front-end to access backend services
+
+
+{{{heading(This course is part of multiple programs)}}}
+
+This course can be applied to multiple Specializations or Professional
+Certificates programs.  Completing this course will count towards your learning
+in any of the following programs:
+
+- [[https://www.coursera.org/specializations/full-stack-react][Full-Stack Web Development with React Specialization]]
+
+- [[https://www.coursera.org/specializations/full-stack-mobile-app-development][Full Stack Web and Multiplatform Mobile App Development Specialization]]
+
+** Welcome from the Instructor
+:PROPERTIES:
+:instructor: Jogesh K. Muppala
+:unnumbered: t
+:END:
+
+Welcome to Server-side Development with NodeJS, Express and MongoDB!  You’re
+joining thousands of learners currently enrolled in the course.  I'm excited to
+have you in the class and look forward to your contributions to the learning
+community.
+
+To begin, I recommend taking a few minutes to explore the course site.  Review
+the material we’ll cover each week, and preview the assignments you’ll need to
+complete to pass the course.  Click Discussions to see forums where you can
+discuss the course material with fellow students taking the class.
+
+If you have questions about course content, please post them in the forums to
+get help from others in the course community.  For technical problems with the
+Coursera platform, visit the Learner Help Center.
+
+Good luck as you get started, and I hope you enjoy the course!
+
+* Week 1---Introduction to Server-Side Development-NodeJS
+:PROPERTIES:
+:length:   10h 37m
+:END:
+
+* Week 2---Persistent Storage with MongoDB
+:PROPERTIES:
+:length:   9h 12m
+:END:
+
+* Week 3---Security and Authentication
+:PROPERTIES:
+:length:   9h 26m
+:END:
+
+* Week 4---Backend as a Service BaaS
+:PROPERTIES:
+:length:   18h 8m
+:END:
+
+* Copying
+:PROPERTIES:
+:copying:  t
+:END:
+
+Copyright {{{noindent}}}\copy 2019 {{{author}}} {{{version}}}
+
+* Footnotes
+
+* Tables
+:PROPERTIES:
+:unnumbered: t
+:END:
+#+texinfo:@listoffloats Table
+
+* Programs
+:PROPERTIES:
+:index:    pg
+:unnumbered: t
+:END:
+
+* Functions
+:PROPERTIES:
+:index:    fn
+:unnumbered: t
+:END:
+
+* Index
+:PROPERTIES:
+:index:    cp
+:unnumbered: t
+:END:
+
+* Definitions                                                      :noexport:
+#+macro:heading @@html:<h2>@@@@texinfo:@heading@@ $1@@html:</h2>@@
+#+macro:subheading @@html:<h3>@@@@texinfo:@heading@@ $1@@html:</h3>@@
+#+macro:dfn @@texinfo:@dfn{@@$1@@texinfo:}@@
+#+macro:noindent @@texinfo:@noindent @@
+#+macro:var @@texinfo:@var{@@$1@@texinfo:}@@
+#+macro:command @@texinfo:@command{@@$1@@texinfo:}@@
+#+macro:option @@texinfo:@option{@@$1@@texinfo:}@@
+#+macro:file @@texinfo:@file{@@$1@@texinfo:}@@
+
+* Options                                                          :noexport:
+#+options: H:4 ':t
+
+* Local Variables                                                  :noexport:
+# Local Variables:
+# fill-column: 79
+# time-stamp-pattern: "8/^\\#\\+date:%:y-%02m-%02d %02H:%02M$"
+# eval: (org-indent-mode)
+# eval: (electric-quote-local-mode)
+# End:
