@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-08 23:07
+#+date:2019-12-09 08:57
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.2
+#+macro:version Version 0.0.3
 
 #+texinfo: @insertcopying
 
@@ -342,7 +342,7 @@ a handful of full-stack web developer on the market.
    many great examples of web developers turning this business into a career
    and quitting their regular jobs.
 
-**** The Myth of the Full-stack Developer
+*** The Myth of the Full-stack Developer
 :PROPERTIES:
 :url:      https://www.andyshora.com/full-stack-developers.html
 :author:   Andy Shora
@@ -481,6 +481,34 @@ often forced to acquire new skills when the resources simply aren't available.
 I feel the problem for companies desperate to hire these guys and girls, is
 that the real multi-skilled developers are often lost in a sea of douchebags,
 claiming they know it all.
+
+*** Multi-tier Architecture
+- https://en.wikipedia.org/wiki/Multitier_architecture
+
+
+In software engineering, /multitier architecture/ (often referred to as /n-tier
+architecture/) or /multilayered architecture/ is a *client–server architecture
+in which presentation, application processing, and data management functions
+are physically separated*.  The most widespread use of multitier architecture
+is the /three-tier architecture/.
+
+*** What is the 3-Tier Architecture
+:PROPERTIES:
+:url:      http://www.tonymarston.net/php-mysql/3-tier-architecture.html
+:author:   Tony Marston
+:date:     October 14, 2012
+:END:
+
+**** Introduction to What is the 3-Tier Architecture
+This article is in response to [[http://blog.ircmaxell.com/2012/08/n-tier-architecture-introduction.html][N-Tier Architecture - An Introduction]] written by
+Anthony Ferrara which I feel gives only a very limited view of what can be a
+complex subject.  Different people have different ideas on how an application
+can be split into tiers, and different ideas on the benefits which can be
+gained from making such a split.  I have been designing and building
+multi-tiered applications in different languages for over a decade, so my
+exposure to this subject has been quite extensive.  I would like to share with
+you my experiences on this subject and hopefully give you a more detailed
+picture.
 
 ** Setting up Git
 
