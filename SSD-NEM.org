@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-08 21:45
+#+date:2019-12-08 23:07
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.1
+#+macro:version Version 0.0.2
 
 #+texinfo: @insertcopying
 
@@ -68,6 +68,455 @@ Good luck as you get started, and I hope you enjoy the course!
 :PROPERTIES:
 :length:   10h 37m
 :END:
+
+{{{heading(Learning Objectives)}}}
+
+- Describe the use of Node for server-side development
+- Create a Node application
+- Demonstrate the use of Node modules in developing a Node application
+- Develop a simple REST API server using the Express framework
+
+
+** Welcome to Server-Side Development with NodeJS, Express and MongoDB
+:PROPERTIES:
+:length:   10m
+:END:
+
+[[file:resources/week_1-lecture_01.mp4]]
+
+** How to Use the Learning Resources
+
+[[file:resources/week_1-lecture_02.mp4]]
+
+** Additional Resources
+- [[https://nodejs.org/][NodeJS]]
+
+- [[https://www.npmjs.com/][NPM]]
+
+- [[http://expressjs.com/][ExpressJS]]
+
+- [[http://www.mongodb.org/][MongoDB]]
+
+- [[http://mongoosejs.com/][Mongoose]]
+
+** What is Full-Stack Web Development
+
+{{{heading(The Big Picture---Objectives and Outcomes)}}}
+
+This lesson gives you a big picture view of the Full Stack Web Development.
+The lecture gives you an overview of full stack web development.  At the end of
+this lesson, you will be able to:
+
+- Understand what is meant by full stack in the context of web development
+
+- Distinguish between front-end, back-end and full stack web development
+
+- Understand the position of this course in the context of this specialization
+
+- [[file:resources/week_1/lecture_03/index.mp4]]
+
+
+{{{heading(Useful Links)}}}
+
+- [[http://www.laurencegellert.com/2012/08/what-is-a-full-stack-developer/][What is a Full Stack developer?]]
+
+  A Full Stack Developer is someone with familiarity in each layer, if not
+  mastery in many and a genuine interest in all software technology.  Good
+  developers who are familiar with the entire stack know how to make life
+  easier for those around them.
+
+- [[http://edward-designer.com/web/full-stack-web-developer/][Wait, Wait… What is a Full-stack Web Developer After All?]]
+
+- [[http://andyshora.com/full-stack-developers.html][The Myth of the Full-stack Developer]]
+
+- [[https://en.wikipedia.org/wiki/Multitier_architecture][Multi-tier Architecture]]
+
+- [[http://www.tonymarston.net/php-mysql/3-tier-architecture.html][What is the 3-Tier Architecture?]]
+
+*** Layers of the Full Stack
+1. Server, Network, and Hosting Environment.
+
+   - This involves understanding what can break and why, taking no resource for
+     granted.
+
+   - Appropriate use of the file system, cloud storage, network resources, and
+     an understanding of data redundancy and availability is necessary.
+
+   - How does the application scale given the hardware constraints?
+
+   - What about multi-threading and race  conditions? Guess what, you won’t see
+     those on your development machine, but they  can and do happen in the real
+     world.
+
+   - Full stack developers can work side by side with DevOps.  The system
+     should provide useful error messages and logging capabilities. DevOps will
+     see the messages before you will, so make them count.
+
+2. Data Modeling
+
+   - If the data model is flawed, the business logic and higher layers start to
+     need strange (ugly) code to compensate for corner cases the data model
+     doesn’t cover.
+
+   - Full stack developers know how to create a reasonably normalized
+     relational model, complete with foreign keys, indexes, views, lookup
+     tables, etc.
+
+   - Full stack developers are familiar with the concept of non-relational data
+     stores and understand where they shine over relational data stores.
+
+3. Business Logic
+
+   - The heart of the value the application provides.
+
+   - Solid object oriented skills are needed here.
+
+   - Frameworks might be needed here as well.
+
+4. API layer---Action Layer---MVC
+
+   - How the outside world operates against the business logic and data model.
+
+   - Frameworks at this level should be used heavily.
+
+   - Full stack developers have the ability to write clear, consistent, simple
+     to use interfaces. The heights to which some APIs are convoluted repel me.
+
+5. User Interface
+
+   - Full stack developers: a) understand how to create a readable layout, or
+     b) acknowledge they need help from artists and graphic designers.  Either
+     way, implementing a good visual design is key.
+
+   - Can include mastery of HTML5 / CSS.
+
+   - JavaScript is the up and coming language of the future and lots of
+     exciting work is being done in the JavaScript world (node, backbone,
+     knockout…)
+
+6. User Experience
+
+   - Full stack developers appreciate that users just want things to work.
+
+   - A good system doesn’t give its users carpal tunnel syndrome or sore eyes.
+     A full stack developer can step back and look at a process that needs 8
+     clicks and 3 steps, and get it down to one click.  Full stack developers
+     write useful error messages. If something breaks, be apologetic about
+     it. Sometimes programmers inadvertently write error messages that can make
+     people feel stupid.
+
+7. Understanding what the customer and the business need
+
+   - Now we are blurring into the line of architect, but that is too much of a
+     hands off role.
+
+   - Full stack developers have a grasp of what is going on in the field when
+     the customer uses the software. They also have a grasp of the business.
+
+8. Other Pieces of the Puzzle
+
+   - Ability to write quality unit tests.  By the way, even JavaScript can have
+     unit tests these days.
+
+   - Understanding of repeatable automated processes for building the
+     application, testing it, documenting it, and deploying it at scale.
+
+   - An awareness of security concerns is important, as each layer presents its
+     own possible vulnerabilities.
+
+9. Closing Thoughts
+
+   - It is very bad practice to tightly couple code to a specific
+     implementation (library, OS, hardware, etc). Just because a full stack
+     developer understands the entire spectrum doesn’t mean they have license
+     to take shortcuts. Well, actually they do if it is a build and throw away
+     prototype.
+
+   - Technology start-ups need full stack developers for their versatility!
+     However, as an organization matures, it needs more and more focused
+     skills.
+
+   - I’m not sure you can call yourself a full stack developer until you have
+     worked in multiple languages, platforms, and even industries in your
+     professional career. Full stack goes beyond a ‘senior engineer’, as it is
+     along the same lines as a polyglot programmer but with a higher view of
+     all the connecting pieces. Note that on my list, only items 3-5 involve
+     writing code.
+
+*** What is a Full Stack Web Developer
+:PROPERTIES:
+:url:      https://edward-designer.com/web/full-stack-web-developer/
+:author:   Edward Chung
+:date:     December 18, 2014
+:END:
+
+**** Summary of What is a Full Stack Web Developer
+A full-stack web developer is someone who has honed skills in both front-end
+web design/development and back-end/server coding.  You can count on a
+full-stack web developer to design, code, implement and maintain a fully
+functional modern interactive website on his/her own (not just a static website
+with a few pages).
+
+**** The Full Stack Web Developer
+With the ever evolvement of the almighty World Wide Web, new job functions are
+created virtually every day.  Just a few years ago, you only needed a web
+designer to create the visual design in Photoshop and/or Dreamweaver and a web
+developer to code the front-end/back-end scripts and the website was ready to
+go.  At that time, websites were charged based on the number of “pages” (a
+concept borrowed from print design).
+
+Fast forward to the present, we now have (not a exhaustive list) :
+
+- visual designer
+- web designer
+- UI designer
+- UX designer
+- interaction designer
+- art director
+- front-end developer
+- back-end developer
+- web developer
+- mobile developer
+- database developer
+- database administrator
+- web master
+- web server administrator
+- SEO specialist
+- web analyst
+- web security professional
+- quality assurance tester
+- project manager
+- growth hacker
+- …
+
+
+Several roles may be taken up by the same individual depending on the size of
+the company and the resources.  Very large and profitable companies may gather
+experts from each field in their teams with a view to create the
+best-ever-possible web products of the world.
+
+But normally, in the down-to-earth company, the web designer/developer
+distinction still applies.  The web designer will be responsible for the
+visual/web/UI/UX/interaction design while the web developer will do the
+front-end coding/back-end coding/database administration/server
+setup/debugging/etc.  However, problems always occur in areas when the two have
+to work together yet only either one takes responsible.  Factors like
+miscommunications/false assumptions of job role and scope/misunderstanding of
+the technology/etc.  will render the end product a subpar one.
+
+This is where a full-stack web developer can fill the gap.  A full-stack web
+developer masters the best of both worlds (or to a minimum understands both
+worlds).  (S)He will be able to steer the web projects in the right direction
+utilizing the best practices and latest advancements in the technology.  (S)He
+will design and code the whole web project themselves or supervise others to
+perform the tasks by overlooking the whole process from scratch to finish.
+
+When websites and web applications become more and more interactive and
+sophisticated, understanding the technical capabilities of the systems and
+having an eye for artistic/usability judgement are critical to the success.  So
+it is natural for web professionals to evolve to full-stack web developers in
+due course.
+
+However, designing and coding are two distinct skills that require different
+regions of the brain to master. The right brain is for visual and creativity
+and the left brain is for structure and organization.  Designers are
+predominately right-brainers while coder left-brainers.  So there is still only
+a handful of full-stack web developer on the market.
+
+{{{heading(Benefits of Being a Full-Stack Web Developer)}}}
+
+1. You can build a professional website from scratches for your employer.
+
+2. You can be a competent member in cross-functional Agile teams where you can
+   perform both front-end and back-end development.  As Agile project
+   management is fast becoming the norm for web application development and
+   UI/UX is gaining in importance for the success or failure of any web
+   application, you will be seen as a valuable team member contributing to the
+   success of projects.
+
+3. You can start your own website design and development business.
+
+4. You can build your own websites and monetize them through Adsense, affiliate
+   marketing, selling your own products and more.  The best of this is the
+   flexibility of earning extra money alongside your regular job.  There are
+   many great examples of web developers turning this business into a career
+   and quitting their regular jobs.
+
+**** The Myth of the Full-stack Developer
+:PROPERTIES:
+:url:      https://www.andyshora.com/full-stack-developers.html
+:author:   Andy Shora
+:END:
+
+{{{heading(“Full Stack”)}}}
+
+My defensive tendencies are normally put on high alert when I hear that magic
+phrase.  Stacks are a lot bigger than what they used to be, and being able to
+claim one has acquired refined skills at every layer of web development is
+certainly not a small claim.  Does this mean you have a broad range of skills
+or you specialise in everything?
+
+For a time (allegedly) Facebook only hired full-stack engineers.  This was of
+course when they were building the first few versions of Facebook, which, lets
+face it had a relatively simple php backend and wasn't anything special
+design-wise.
+
+{{{heading(Full-stack used to mean less layers)}}}
+
+Coding php or Python, jQuery, HTML, CSS then transferring a few files via FTP
+to your shared hosting account or dedicated server? You were full-stack.  HTML
+was trivial, and even thinking of implementing any proper application code in
+JavaScript wasn't possible.
+
+My beef is not with people who can do all of the above, it's with the label
+'full-stack developer'.  What does it mean in 2014?
+
+At the level of a senior full-stack engineer we're perhaps talking about
+architecting a modular Backbone/AngularJS front-end whilst optimising content
+delivery and tweaking hardware accelerated layers in CSS, followed by
+implementing an async non-blocking backend (which also pre-renders templates on
+the server), and pushing to an AWS cluster which has been built with security
+and scaleability in mind.  Not to mention design.  Designing UI responsively
+and mobile-first is essential, utilising a CSS pre-processor to save time.  And
+remember to setup Nagios for monitoring.  Oh, and ideally when the Continuous
+Integration server detects a bad build because your end-to-end tests have
+failed, get it to send you an SMS with the build error messages.  Well, the
+last two are probably for bonus points.
+
+Ask someone who labels themselves 'full-stack'.  Do they believe they have
+familiarity with different layers, or true mastery?
+
+{{{heading(Identifying mastery)}}}
+
+I used to work with a very smart guy who when interviewing junior web
+developers, used to draw a spider diagram with each of the spikes being
+different layers of web development; UX, HTML, CSS, JavaScript, backend
+scripting language, and SQL.  When the young developers were asked to grade
+themselves out of 10 for each of the skill areas, most went for a good spread,
+but a rather high spread.  It seemed nobody wanted to exceed an 8, or drop
+below a 5 in any of the layers.  We can ignore the scale at which they were
+grading themselves, because we were simply interpreting the grades relatively
+against each other so we could get a good idea of what kind of developer the
+individual saw themselves as.  I didn't hear the term 'full-stack' being used
+even once, but we got a feel that everyone was an all-round web developer.
+What happened next was more interesting.
+
+On the second iteration the interviewees were given a maximum of 30 points to
+distribute as they pleased.  After some frowning, some internal arguing, and
+finally the self-grading we saw a lot more skewed graphs.  The 7-5 well-spread
+ratings turned into more skewed 8-2's.  It seemed when faced with the harsh
+reality of admitting what they were really good at, they delivered, giving
+themselves 8's in their favoured areas and 2's in others.  If the candidates
+really believed in their initial relative spread, we would see the same
+weighting in the second round, but instead we saw front-end and back-end
+developers emerge from the crowd.
+
+Of course 99% of web developers have probably never sat through this test, and
+have perhaps have never been forced to reveal what their real spread of skills
+is.
+
+{{{heading(How skilled are you in each discipline?)}}}
+
+The basics of the languages/frameworks we learn today can often be picked up in
+a matter of hours.  We no longer add skills to our CVs by taking a course, we
+simply download some code and start hacking through tutorials and demo code.
+The problem is, I feel the difference between knowing something in web
+development and truly mastering it is now becoming an increasingly blurred
+line.
+
+It's very easy to become disillusioned with your own skills when you've
+deployed some code which has been consumed by lots of users.  Let's say you've
+written a web application which has scaled well under load, and you've received
+great feedback.  Are you a master of everything you used in this stack?  Or are
+you simply good at implementing the layers you needed to make things work
+together?  Because that's an entirely different skill, and in fact a very
+valuable one.
+
+{{{heading(The skill of acquiring new skills)}}}
+
+In my eyes the most valuable skill to have is the ability to learn, closely
+followed by the ability to know when you don't know something.  I'm sure we've
+all met people who decide to put brakes on their own learning because they
+believe they've become a master at something.  I don't know about you, but the
+smartest people I know (and the ones I have most respect for) are the ones who
+are still eager to learn new things every day, from everyone they meet.  These
+people just don't stop growing, in terms of both ability and character.
+
+{{{heading(Why I'm not a full-stack developer)}}}
+
+At one point (probably when I was about twenty-two) I heard this phrase
+'full-stack' and I thought "yeah, I'm one of them".  Five years later after
+working in roles with ASP, php, .Net, Node and finally JavaScript and CSS, I
+only label myself as a front-end developer.  Maybe I just wasn't that good at
+previous disciplines, or maybe since spending the last 2-3 years in pure
+JavaScript roles I just actually realised how high the limits are when you
+specialise.  This is simply opportunity I did not have when I was busy in
+cross-discipline roles at smaller companies.
+
+Sure, I've got some broad skills like a lot of developers.  However, I'd like
+to think being a front-end developer now assumes some knowledge of UX, design,
+and how data is modelled and served on the backend, and this is why I think the
+term full-stack is old fashioned (if five years is old) and perhaps a bit smug.
+
+Maybe, I just don't like the term.
+
+{{{heading(Some people are willing to have a go at everything)}}}
+
+Perhaps most respectable about all people who claim to be full-stack, is that
+is conveys ambition and persistance.  The ideal developer should be willing to
+have a go at learning anything, but also acknowledge when they need help from a
+specialist in the team.
+
+Perhaps I was too defensive at first, I've met too many people who pronounce
+the term in a smug way, instantly causing me to discredit them.  However, say
+you're full-stack in a normal way, and there will be no scrutiny from my part.
+It won't be at all like meeting an investment banker or recruiter.
+
+{{{heading(The employability of a true full-stack developer: HIGH)}}}
+
+The chances of finding a good full-stack developer: LOW.
+
+Smaller companies and startups NEED full-stack developers.  Developers are
+often forced to acquire new skills when the resources simply aren't available.
+I feel the problem for companies desperate to hire these guys and girls, is
+that the real multi-skilled developers are often lost in a sea of douchebags,
+claiming they know it all.
+
+** Setting up Git
+
+** Basic Git Commands
+
+** Online Git Repositories
+
+** Node.js and NPM
+
+** Setting up Node.js and NPM
+
+** Node Modules
+
+** Understanding Node Modules
+
+** Node Modules---Callbacks and Error Handling
+
+** Node Modules---Callbacks and Error Handling
+
+** Networking Essentials
+
+** Node and the HTTP Module
+
+** Exercise---Node and the HTTP Module
+
+** Introduction to Express
+
+** Exercise---Introduction to Express
+
+** Brief Representational State Transfer---REST
+
+** Express Router
+
+** Exercice---Express Router
+
+** Assignment 1---Node Modules Express and REST API
 
 * Week 2---Persistent Storage with MongoDB
 :PROPERTIES:
