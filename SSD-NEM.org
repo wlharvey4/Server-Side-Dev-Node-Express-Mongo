@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-09 09:38
+#+date:2019-12-10 07:43
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.4
+#+macro:version Version 0.0.5
 
 #+texinfo: @insertcopying
 
@@ -510,7 +510,8 @@ exposure to this subject has been quite extensive.  I would like to share with
 you my experiences on this subject and hopefully give you a more detailed
 picture.
 
-** Setting up Git
+** Getting Started with Git
+*** Setting up Git
 
 Git Objectives and Outcomes
 
@@ -521,7 +522,7 @@ end of this lesson, you will be able to:
 
 - Set up and use online Git repositories
 
-*** Setting up your Development Environment
+**** Setting up your Development Environment
 
 {{{heading(Software Requirements)}}}
 
@@ -561,11 +562,257 @@ folder as a Git repository and commit the files to the repository at the end of
 each exercise.  Brief instructions on using Git are available later in this
 lesson.
 
-*** Exercise---Video---Setting Up Git
+**** Exercise---Video---Setting Up Git
+- [[file:resources/week_1/lecture_04/index.mp4]]
 
-** Basic Git Commands
+**** Exercise---Setting Up Git
 
-** Online Git Repositories
+{{{heading(Objectives and Outcomes)}}}
+
+In this exercise you will learn to install Git on your computer. Git is
+required for using all the remaining Node.js and Node based tools that we
+encounter in the rest of the course. At the end of this exercise, you would be
+able to:
+
+- Install Git on your computer
+
+- Ensure that Git can be used from the command-line or command-prompt on your
+  computer
+
+- Set up some of the basic global configuration for Git
+
+
+{{{heading(Downloading and Installing Git)}}}
+
+- To install Git on your computer, go to https://git-scm.com/downloads to
+  download the Git installer for your specific computing platform.
+
+- Then, follow the installation steps as you install Git using the installer.
+
+- You can find more details about installing Git at
+  https://git-scm.com/book/en/v2/Getting-Started-Installing-Git. This document
+  lists several ways of installing Git on various platforms.
+
+- Installing some of the GUI tools like GitHub Desktop will also install Git on
+  your computer.
+
+- On a Mac, setting up XCode command-line tools also will set up Git on your
+  computer.
+
+- You can choose any of the methods that is most convenient for you.
+
+
+{{{heading(Some Global Configuration for Git)}}}
+
+- Open a cmd window or terminal on your computer.
+
+- Check to make sure that Git is installed and available on the command line,
+  by typing the following at the command prompt:
+  : git --version
+
+- To configure your user name to be used by Git, type the following at the
+  prompt:
+  : git config --global user.name "Your Name"
+
+- To configure your email to be used by Git, type the following at the prompt:
+  : git config --global user.email <your email address>
+
+- You can check your default Git global configuration, you can type the
+  following at the prompt:
+  : git config --list
+
+*** Basic Git Commands
+- [[file:resources/week_1/lecture_05/index.mp4]]
+
+- [[file:resources/week_1/lecture_05/Git-Exercises.pdf][Git-Exercises.pdf]]
+
+
+{{{heading(Objectives and Outcomes)}}}
+
+In this exercise you will get familiar with some basic Git commands. At the end
+of this exercise you will be able to:
+
+- Set up a folder as a Git repository
+
+- Perform basic Git operations on your Git repository
+
+
+{{{heading(Basic Git Commands)}}}
+
+- At a convenient location on your computer, create a folder named git-test.
+
+- Open this git-test folder in your favorite editor.
+
+- Add a file named index.html to this folder, and add the following HTML code
+  to this file:
+
+  #+name:index.html-skeleton
+  #+begin_src html
+    <!DOCTYPE html>
+    <html>
+        <head></head>
+
+        <body>
+            <h1>This is a Header</h1>
+        </body>
+  #+end_src
+
+{{{subheading(Initializing the folder as a Git repository)}}}
+
+- Go to the git-test folder in your cmd window/terminal and type the following
+  at the prompt to initialize the folder as a Git repository:
+  : git init
+
+
+{{{subheading(Checking your Git repository status)}}}
+
+- Type the following at the prompt to check your Git repository's status:
+  : git status
+
+
+{{{subheading(Adding files to the staging area)}}}
+
+- To add files to the staging area of your Git repository, type:
+  : git add .
+
+
+{{{subheading(Commiting to the Git repository)}}}
+
+- To commit the current staging area to your Git repository, type:
+  : git commit -m "first commit"
+
+
+{{{subheading(Checking the log of Git commits)}}}
+
+- To check the log of the commits to your Git repository, type
+  : git log --oneline
+
+
+{{{heading(Modifications)}}}
+
+- Now, modify the ~index.html~ file as follows:
+
+#+name:index.html-modification1
+#+begin_src html
+  !DOCTYPE html>
+  <html>
+      <head></head>
+
+      <body>
+          <h1>This is a Header</h1>
+          <p>This is a paragraph</p>
+      </body>
+  </html>
+#+end_src
+
+- Add a sub-folder named templates to your git-test folder, and then add a file
+  named temp.html to the templates folder. Then set the contents of this file
+  to be the same as the index.html file above.
+
+- Then check the status and add all the files to the staging area.
+
+- Then do the second commit to your repository
+
+- Now, modify the index.html file as follows:
+
+#+name:index.html-modification2
+#+begin_src html
+  <!DOCTYPE html>
+  <html>
+      <head></head>
+
+      <body>
+          <h1>This is a Header</h1>
+          <p>This is a paragraph</p>
+          <p>This is a second paragraph</p>
+      </body>
+  </html>
+#+end_src
+
+- Now add the modified ~index.html~ file to the staging area and then do a third
+  commit.
+
+
+{{{subheading(Checking out a file from an earlier commit)}}}
+
+- To check out the index.html from the second commit, find the number of the
+  second commit using the git log, and then type the following at the prompt:
+  : git checkout <second commit's number> index.html
+
+{{{subheading(Resetting the Git repository)}}}
+
+- To discard the effect of the previous operation and restore index.html to its
+  state at the end of the third commit, type:
+  : git reset HEAD index.html
+
+- Then type the following at the prompt:
+  : git checkout -- index.html
+
+- You can also use ~git reset~ to reset the staging area to the last commit
+  without disturbing the working directory.
+
+*** Online Git Repositories
+- [[file:resources/week_1/lecture_06/index.mp4]]
+
+- [[file:resources/week_1/lecture_06/Git-Exercises.pdf][Git-Exercises.pdf]]
+
+
+{{{heading(Objectives and Outcomes)}}}
+
+In this exercise you will learn about how to set up and use an online Git
+repository and synchronize your local Git repository with your online
+repository. At the end of this exercise, you will be able to:
+
+- Set up the online repository as a remote repository for your local Git
+  repository
+
+- Push your commits to the online repository
+
+- Clone an online Git repository to your computer
+
+
+{{{heading(Setting up an Online Git repository)}}}
+
+- Sign up for an account either at Bitbucket (https://bitbucket.org) or GitHub
+  (https://github.com). Note that private repositories on GitHub requires a
+  paid account, and is not available for free accounts.
+
+- Then set up an online Git repository named git-test. Note the URL of your
+  online Git repository.
+
+
+{{{heading(Set the local Git repository to set its remote origin)}}}
+
+- At the prompt, type the following to set up your local repository to link to
+  your online Git repository:
+  : git remote add origin <repository URL>
+
+{{{heading(Pushing your commits to the online repository)}}}
+
+- At the prompt, type the following to push the commits to the online
+  repository:
+  : git push -u origin master
+
+{{{heading(Cloning an online repository)}}}
+
+- To clone an online repository to your computer, type the following at the
+  prompt:
+  : git clone <repository URL>
+
+*** Additional Git Resources
+- Git site http://git-scm.com.
+
+- [[https://git-scm.com/book/en/v2/Getting-Started-Installing-Git][Installing Git]] chapter from Pro Git
+
+- [[https://git-scm.com/docs][Git reference manual]]
+
+- Quick reference guides:
+
+  - [[https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf][GitHub Cheat Sheet]] (PDF)
+
+  - [[http://ndpsoftware.com/git-cheatsheet.html][Visual Git Cheat Sheet]] (SVG | PNG)
+
+- [[https://www.atlassian.com/git/tutorials/][Atlassian comprehensive Git tutorial]]
 
 ** Node.js and NPM
 
