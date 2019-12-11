@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-10 08:23
+#+date:2019-12-11 09:55
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.7
+#+macro:version Version 0.0.8
 
 #+texinfo: @insertcopying
 
@@ -77,18 +77,18 @@ Good luck as you get started, and I hope you enjoy the course!
 - Develop a simple REST API server using the Express framework
 
 
-** Welcome to Server-Side Development with NodeJS, Express and MongoDB
+** Introduction to Server-Side Development with NodeJS, Express and MongoDB
 :PROPERTIES:
 :length:   10m
 :END:
 
 [[file:resources/week_1-lecture_01.mp4]]
 
-** How to Use the Learning Resources
+** Introduction to the Learning Resources
 
 [[file:resources/week_1-lecture_02.mp4]]
 
-** Additional Resources
+*** Additional Resources
 - [[https://nodejs.org/][NodeJS]]
 
 - [[https://www.npmjs.com/][NPM]]
@@ -99,7 +99,7 @@ Good luck as you get started, and I hope you enjoy the course!
 
 - [[http://mongoosejs.com/][Mongoose]]
 
-** What is Full-Stack Web Development
+** Introduciton to Full-Stack Web Development
 
 {{{heading(The Big Picture---Objectives and Outcomes)}}}
 
@@ -510,7 +510,7 @@ exposure to this subject has been quite extensive.  I would like to share with
 you my experiences on this subject and hopefully give you a more detailed
 picture.
 
-** Getting Started with Git
+** Introduction to Git
 *** Setting up Git
 
 Git Objectives and Outcomes
@@ -886,7 +886,7 @@ exercise, you will be able to:
 
 - [[https://docs.npmjs.com/][NPM Documentation]]
 
-** Node Modules
+** Introduction to Node Modules
 
 {{{heading(Objectives and Outcomes)}}}
 
@@ -1090,30 +1090,22 @@ Do a Git commit with the message "Node Callbacks and Error Handling".
 
 - [[http://requirejs.org/][RequireJS]]
 
-** Understanding Node Modules
+** Introduction to Networking Essentials
+** Introduction to the HTTP Module
 
-** Node Modules---Callbacks and Error Handling
-
-** Node Modules---Callbacks and Error Handling
-
-** Networking Essentials
-
-** Node and the HTTP Module
-
-** Exercise---Node and the HTTP Module
+*** Exercise---Node and the HTTP Module
 
 ** Introduction to Express
 
-** Exercise---Introduction to Express
+*** Exercise---Introduction to Express
 
-** Brief Representational State Transfer---REST
+*** Brief Representational State Transfer---REST
 
-** Express Router
+*** Express Router
 
-** Exercice---Express Router
+*** Exercice---Express Router
 
 ** Assignment 1---Node Modules Express and REST API
-
 * Week 2---Persistent Storage with MongoDB
 :PROPERTIES:
 :length:   9h 12m
