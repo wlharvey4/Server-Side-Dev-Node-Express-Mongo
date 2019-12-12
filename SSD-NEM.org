@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-11 16:58
+#+date:2019-12-11 17:13
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.11
+#+macro:version Version 0.0.12
 
 #+texinfo: @insertcopying
 
@@ -1337,6 +1337,39 @@ this lesson, you will be able to:
 
 - [[https://stephensugden.com/middleware_guide/][A Short Guide to Connect Middleware]]
 
+*** Article---Understanding Express.js
+:PROPERTIES:
+:url:      http://evanhahn.com/understanding-express/
+:author:   Evan Hahn
+:date:     March 5, 2014
+:END:
+
+This is aimed at people who have some familiarity with Node.js.  They know how
+to run Node scripts and can install packages with npm.  You don't have to be an
+expert, though.  This guide was last updated for Express 4.16.4. It's an
+introduction and mostly deals with concepts.
+
+Express.js describes itself better than I can: “a minimal and flexible node.js
+web application framework". It helps you build web apps.  If you've used Sinatra
+or Flask in other languages, a lot of this will be familiar.”
+
+Like any abstraction, Express hides difficult bits and says "don't worry, you
+don't need to understand this part".  It does things for you so that you don't
+have to bother.  In other words, it's magic.
+
+It's good magic, too. Famous companies like PayPal, Netflix, Airtable, and
+MySpace use it.  But lots of people use it for building...well, almost
+anything!
+
+But all magic comes at a price: you might not understand the inner workings of
+Express.  This is like driving a car; I drive a car just fine without intimate
+knowledge of its workings, but I'd be better off with that knowledge.  What if
+things break?  What if you want to get all the performance you can out of the
+car?  What if you have an insatiable thirst for knowledge?
+
+So let's understand Express from the bottom, with Node.
+
+**** Bottom Layer---Node’s HTTP Server
 ** Assignment 1---Node Modules Express and REST API
 * Week 2---Persistent Storage with MongoDB
 :PROPERTIES:
