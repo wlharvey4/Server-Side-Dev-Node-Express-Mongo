@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-12 14:22
+#+date:2019-12-12 14:27
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.14
+#+macro:version Version 0.0.15
 
 #+texinfo: @insertcopying
 
@@ -1128,6 +1128,15 @@ In this exercise, you will explore three core Node modules: ~http~, ~fs~ and
 - Implement a server that returns html files from a folder
 
 **** A Simple HTTP Server
+
+From within the Org buffer, create this project by issuing the following commands
+commands:
+
+1. =C-c C-v b= to execute the bash scripts to initialize the Node project
+2. =C-c C-v t= to tangle the ~index.js~ file into the project directory
+3. =cd node-http= to move into the project directory
+4. =yarn start=  to start the ~http~ server
+5. =open localhost:3000= to open a browser and hit the server
 
 - Create a folder named ~node-http~ in the NodeJS folder and move into the
   folder.
