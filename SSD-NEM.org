@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-11 17:13
+#+date:2019-12-12 13:46
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.12
+#+macro:version Version 0.0.13
 
 #+texinfo: @insertcopying
 
@@ -99,7 +99,7 @@ Good luck as you get started, and I hope you enjoy the course!
 
 - [[http://mongoosejs.com/][Mongoose]]
 
-** Introduciton to Full-Stack Web Development
+** Introduction to Full-Stack Web Development
 
 {{{heading(The Big Picture---Objectives and Outcomes)}}}
 
@@ -647,7 +647,7 @@ of this exercise you will be able to:
   to this file:
 
   #+name:index.html-skeleton
-  #+begin_src html
+  #+begin_src html :eval never
     <!DOCTYPE html>
     <html>
         <head></head>
@@ -693,7 +693,7 @@ of this exercise you will be able to:
 - Now, modify the ~index.html~ file as follows:
 
 #+name:index.html-modification1
-#+begin_src html
+#+begin_src html :eval never
   !DOCTYPE html>
   <html>
       <head></head>
@@ -716,7 +716,7 @@ of this exercise you will be able to:
 - Now, modify the index.html file as follows:
 
 #+name:index.html-modification2
-#+begin_src html
+#+begin_src html :eval never
   <!DOCTYPE html>
   <html>
       <head></head>
@@ -936,7 +936,7 @@ exercise, you will be able to:
   until you end up with the file containing the following:
 
   #+name:default-package.json
-  #+begin_src js
+  #+begin_src js :eval never
     {
       "name": "node-examples",
       "version": "1.0.0",
@@ -954,7 +954,7 @@ exercise, you will be able to:
 - Create a file named ~index.js~ and add the following code to this file:
 
   #+name:basic-index.js
-  #+begin_src js
+  #+begin_src js :eval never
     var rect = {
             perimeter: (x, y) => (2*(x+y)),
             area: (x, y) => (x*y)
@@ -995,7 +995,7 @@ exercise, you will be able to:
 - Now, create a file named ~rectangle.js~, and add the following code to it:
 
   #+name:rectangle.js
-  #+begin_src js
+  #+begin_src js :eval never
     exports.perimeter =  (x, y) => (2*(x+y));
 
     exports.area = (x, y) => (x*y);
@@ -1034,7 +1034,7 @@ to:
 - Update ~rectangle.js~ as shown below:
 
   #+name:rectangle.js-updated
-  #+begin_src js
+  #+begin_src js :eval never
     module.exports = (x,y,callback) => {
         if (x <= 0 || y <= 0)
             setTimeout(() => 
@@ -1055,7 +1055,7 @@ to:
 - Then, update ~index.js~ as shown below:
 
   #+name:index.js-updated
-  #+begin_src js
+  #+begin_src js :eval never
     function solveRect(l,b) {
         console.log("Solving for rectangle with l = "
                     + l + " and b = " + b);
@@ -1121,29 +1121,55 @@ core modules.  At the end of this lesson, you will be able to:
 
 {{{heading(Objectives and Outcomes)}}}
 
-In this exercise, you will explore three core Node modules: HTTP, fs and
-path. At the end of this exercise, you will be able to:
+In this exercise, you will explore three core Node modules: ~http~, ~fs~ and
+~path~.  At the end of this exercise, you will be able to:
 
 - Implement a simple HTTP Server
 
-- mplement a server that returns html files from a folder
+- Implement a server that returns html files from a folder
 
 
 **** A Simple HTTP Server
-- Create a folder named node-http in the NodeJS folder and move into the
+- Create a folder named ~node-http~ in the NodeJS folder and move into the
   folder.
 
-- In the node-http folder, create a subfolder named public.
+  #+call: http-server-create-public-subfolder()
 
-- At the prompt, type the following to initialize a package.json file in the
-  node-examples folder:
+  #+RESULTS:
+  #+begin_example
+  Wrote to /Users/pine/Dev/WebDev/Server-Side-Dev/Server-Side-Dev-Node-Express-Mongo/node-http/package.json:
+
+  {
+    "name": "node-http",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+
+  #+end_example
+
+  #+call: http-server-package.json-start-script()
+
+  #+RESULTS:
+
+- In the ~node-http~ folder, create a subfolder named ~public~.
+
+- At the prompt, type the following to initialize a ~package.json~ file in the
+  ~node-examples~ folder:
 
   : npm init
 
-- Accept the standard defaults suggested until you end up with a package.json
+- Accept the standard defaults suggested until you end up with a ~package.json~
   file containing the following:
 
-  #+begin_src js
+  #+begin_src js :eval never
     {
       "name": "node-http",
       "version": "1.0.0",
@@ -1158,9 +1184,22 @@ path. At the end of this exercise, you will be able to:
     }
   #+end_src
 
+  #+name:http-server-create-public-subfolder
+  #+begin_src sh :results output :eval never-export
+    mkdir -p node-http/public && cd node-http && npm init -y
+  #+end_src
+
+  #+name:http-server-package.json-start-script
+  #+begin_src js :results output :eval never-export
+    const fs = require('fs');
+    let package = JSON.parse(fs.readFileSync("./node-http/package.json", "utf-8"));
+    package.scripts.start = "node index";
+    fs.writeFileSync('./node-http/package.json', JSON.stringify(package, null, 2));
+  #+end_src
+
 - Create a file named ~index.js~ and add the following code to it:
 
-  #+begin_src js
+  #+begin_src js :eval never
     const http = require('http');
 
     const hostname = 'localhost';
@@ -1200,7 +1239,7 @@ path. At the end of this exercise, you will be able to:
 - In the ~public~ folder, create a file named ~index.html~ and add the
   following code to it:
 
-  #+begin_src html
+  #+begin_src html :eval never
     <html>
       <title>This is aboutus.html</title>
       <body>
@@ -1212,7 +1251,7 @@ path. At the end of this exercise, you will be able to:
 
 - Then update ~index.js~ as follows:
 
-  #+begin_src js
+  #+begin_src js :eval never
     ...
     const fs = require('fs');
     const path = require('path');
@@ -1259,6 +1298,8 @@ path. At the end of this exercise, you will be able to:
 
     ...
   #+end_src
+
+  #+RESULTS:
 
 - Start the server, and send various requests to it and see the corresponding
   responses.
