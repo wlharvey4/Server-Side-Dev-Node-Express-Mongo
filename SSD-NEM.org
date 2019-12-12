@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-11 16:40
+#+date:2019-12-11 16:58
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.10
+#+macro:version Version 0.0.11
 
 #+texinfo: @insertcopying
 
@@ -1283,13 +1283,59 @@ path. At the end of this exercise, you will be able to:
 
 ** Introduction to Express
 
+{{{heading(Objectives and Outcomes)}}}
+
+In this lesson you will learn about the Express framework that enables
+implementing and deploying powerful web servers based on Node.  At the end of
+this lesson, you will be able to:
+
+- Implement a web server using the Express framework
+
+- Develop a web server that supports a REST API
+
+- Use Express router to implement support for the REST API
+
+
+*** Introduction to Express Video
+- [[file:resources/week_1/lecture_16/index.mp4]]
+
+- [[file:resources/week_1/lecture_16/Intro-Express.pdf][Intro-Express.pdf]]
+
 *** Exercise---Introduction to Express
+
+- [[file:resources/week_1/lecture_17/index.mp4]]
 
 *** Brief Representational State Transfer---REST
 
+- [[file:resources/week_1/lecture_18/index.mp4]]
+
+- [[file:resources/week_1/lecture_18/REST.pdf][REST.pdf]]
+
 *** Express Router
 
+- [[file:resources/week_1/lecture_19/index.mp4]]
+
+- [[file:resources/week_1/lecture_19/Express-Router.pdf][Express-Router.pdf]]
+
 *** Exercice---Express Router
+
+- [[file:resources/week_1/lecture_20/index.mp4]]
+
+*** Express Additional Resources
+
+- [[http://expressjs.com/][ExpressJS]]
+
+- [[https://github.com/senchalabs/connect][Connect]]
+
+- [[https://github.com/expressjs/express/wiki][Express Wiki]]
+
+- [[https://github.com/expressjs/morgan][morgan]]
+
+- [[https://github.com/expressjs/body-parser][body-parser]]
+
+- [[http://evanhahn.com/understanding-express/][Understanding Express.js]]
+
+- [[https://stephensugden.com/middleware_guide/][A Short Guide to Connect Middleware]]
 
 ** Assignment 1---Node Modules Express and REST API
 * Week 2---Persistent Storage with MongoDB
