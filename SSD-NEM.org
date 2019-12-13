@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-13 07:38
+#+date:2019-12-13 08:17
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.18
+#+macro:version Version 0.0.19
 
 #+texinfo: @insertcopying
 
@@ -1327,18 +1327,25 @@ commands:
 :header-args: :eval no
 :END:
 
-{{{heading(Purpose)}}}
+{{{heading(The Purpose of this Guide)}}}
 
+#+cindex:node http handling
 The purpose of this guide is to impart a solid understanding of the process of
 Node.js HTTP handling.
 
 {{{heading(Prerequisites)}}}
 
+#+cindex:http requests
+#+cindex:EventEmitters
+#+cindex:Streams
 We'll assume that you know, in a general sense, how HTTP requests work,
 regardless of language or programming environment.  We'll also assume a bit of
 familiarity with Node.js EventEmitters and Streams.
 
 **** Create the Server
+#+cindex:@code{createServer}
+#+cindex:web server object
+#+cindex:server object
 Any node web server application will at some point have to create a web server
 object.  This is done by using ~createServer~.
 
@@ -1352,11 +1359,15 @@ object.  This is done by using ~createServer~.
 
 {{{subheading(Request Handler)}}}
 
+#+cindex:request handler
 The function that's passed in to ~createServer~ is called once for every HTTP
 request that's made against that server, so it's called the /request handler/.
 
 {{{subheading(Server Object)}}}
 
+#+cindex:EventEmitter, server object
+#+cindex:server object as event emitter
+#+cindex:listener object
 In fact, the =Server= object returned by ~createServer~ is an =EventEmitter=,
 and what we have here is just shorthand for creating a =server= object and then
 adding the =listener= later.
@@ -1378,6 +1389,8 @@ with a few handy objects for dealing with the transaction, =request= and
 
 {{{subheading(The Listen Method)}}}
 
+#+cindex:@code{listen} method
+#+cindex:port number
 In order to actually serve requests, the ~listen~ method needs to be called on
 the =server= object.  In most cases, all you'll need to pass to ~listen~ is the
 port number you want the server to listen on.  There are some other options
@@ -1385,8 +1398,13 @@ too, so consult the [[https://nodejs.org/api/http.html][API reference]].
 
 **** Method-URL-Headers
 
-{{{heading(Looking at the Method and URL)}}}
+{{{heading(Looking at the Request Objects’s Method and URL Properties)}}}
 
+#+cindex:request object
+#+cindex:properties, request object
+#+cindex:request method, url
+#+cindex:method, request property
+#+cindex:url, request property
 When handling a request, the first thing you'll probably want to do is look at
 the method and URL, so that appropriate actions can be taken.  Node makes this
 relatively painless by putting handy properties onto the =request=
@@ -1398,8 +1416,9 @@ The method here will always be a normal HTTP method/verb.  The url is the full
 URL without the server, protocol or port.  For a typical URL, this means
 everything after and including the third forward slash.
 
-{{{heading(Headers)}}}
+{{{heading(Looking at the Request Headers)}}}
 
+#+cindex:headers
 Headers are also not far away.  They're in their own object on =request= called
 =headers=.
 
@@ -1414,29 +1433,38 @@ task of parsing headers for whatever purpose.
 
 {{{subheading(Raw Headers)}}}
 
+#+cindex:raw headers
 If some headers are repeated, then their values are overwritten or joined
 together as comma-separated strings, depending on the header.  In some cases,
 this can be problematic, so =rawHeaders= is also available.
 
 **** Request Body
 
+#+cindex:request body data
+#+cindex:body data
+#+cindex:data, request
 When receiving a =POST= or =PUT= request, the =request= body might be important
 to your application.  Getting at the =body= data is a little more involved than
 accessing =request= headers.
 
 {{{heading(The Body is a Readable Stream Object)}}}
 
+#+cindex:ReadableStream interface
 The =request= object that's passed in to a handler implements the
 =ReadableStream= interface.  This stream can be listened to or piped elsewhere
 just like any other stream.
 
 {{{subheading(Data and End Events)}}}
 
+#+cindex:@code{data} event
+#+cindex:@code{end} event
+#+cindex:events, ReadableStream
 We can grab the data right out of the stream by listening to the stream's
 'data' and 'end' events.
 
 {{{subheading(Data Buffers)}}}
 
+#+cindex:@code{Buffer} object
 The chunk emitted in each 'data' event is a =Buffer=.  If you know it's going
 to be string data, the best thing to do is collect the data in an array, then
 at the 'end', concatenate and stringify it.[fn:2]
@@ -1452,11 +1480,16 @@ at the 'end', concatenate and stringify it.[fn:2]
 #+end_src
 
 **** About Errors
+#+cindex:errors, EventEmitter
+#+cindex:EventEmitter errors
 Since the request object is a =ReadableStream=, it's also an =EventEmitter= and
 behaves like one when an error happens.
 
 {{{heading(Add an Error Listener)}}}
 
+#+cindex:@code{error} event
+#+cindex:listener, @code{error} event
+#+cindex:error listener
 An error in the request stream presents itself by emitting an 'error' event on
 the stream.  If you don't have a listener for that event, the error will be
 thrown, which could crash your Node.js program.  You should therefore add an
@@ -1479,7 +1512,7 @@ have to deal with them.
 
 At this point, we've covered:
 
-- creating a server
+- creating a server; and
 - grabbing the:
   - method
   - URL
@@ -1492,7 +1525,7 @@ When we put that all together, it might look something like this:
 
 #+caption:Sample of a Simple HTTP Server Looking at Requests
 #+name:simple-http-server-looking-at-requests
-#+begin_src js
+#+begin_src js -n
   const http = require('http');
 
   http.createServer((request, response) => {
@@ -1514,6 +1547,8 @@ If we run this example, we'll be able to receive requests, but not respond to
 them.  In fact, if you hit this example in a web browser, your request would
 time out, as nothing is being sent back to the client.
 
+#+cindex:ServerResponse object, response
+#+cindex:WritableStream object, response
 So far we haven't touched on the =response= object at all, which is an instance
 of =ServerResponse=, which is a =WritableStream=.  It contains many useful
 methods for sending data back to the client.  We'll cover that next.
@@ -1522,6 +1557,9 @@ methods for sending data back to the client.  We'll cover that next.
 
 {{{heading(Setting the Status Code Property)}}}
 
+#+cindex:http status code
+#+cindex:status code, http
+#+cindex:@code{statusCode} property
 If you don't bother setting it, the HTTP status code on a response will always
 be 200.  Of course, not every HTTP response warrants this, and at some point
 you'll definitely want to send a different status code.  To do that, you can
@@ -1533,8 +1571,11 @@ There are some other shortcuts to this, as we'll see soon.
 
 **** Setting Response Headers
 
-{{{heading(Setting Headers with setHeader Method)}}}
+{{{heading(Setting Response Headers with setHeader Method)}}}
 
+#+cindex:@code{setHeader} method
+#+cindex:response headers
+#+cindex:headers, response
 Headers are set through a convenient method called ~setHeader~.
 
 #+begin_src js
@@ -1548,6 +1589,7 @@ sent.
 
 **** Explicitly Sending Header Data
 
+#+cindex:implicit headers
 The methods of setting the headers and status code that we've already discussed
 assume that you're using "implicit headers".  This means you're counting on
 node to send the headers for you at the correct time before you start sending
@@ -1555,6 +1597,8 @@ body data.
 
 {{{Writing Headers Using writeHead Method}}}
 
+#+cindex:@code{writeHead} method
+#+cindex:explicit headers
 If you want, you can explicitly write the headers to the response stream.  To
 do this, there's a method called ~writeHead~, which writes the status code and
 the headers to the stream.
@@ -1573,6 +1617,11 @@ start sending response data.
 
 {{{heading(Writing to the Response Body using Write Stream Methods)}}}
 
+#+cindex:response object
+#+cindex:WritableStream, response object
+#+cindex:@code{write} method
+#+cindex:data, response
+#+cindex:response data
 Since the response object is a =WritableStream=, writing a response body out to
 the client is just a matter of using the usual stream methods.
 
@@ -1587,6 +1636,7 @@ the client is just a matter of using the usual stream methods.
 
 {{{subheading(Using the end Method)}}}
 
+#+cindex:@code{end} method
 The ~end~ function on streams can also take in some optional data to send as
 the last bit of data on the stream, so we can simplify the example above as
 follows:[fn:3]
@@ -1595,12 +1645,14 @@ follows:[fn:3]
 
 **** About Response Errors
 
+#+cindex:error events, response object
 The =response= stream can also emit 'error' events, and at some point you're
 going to have to deal with that as well.  All of the advice for request stream
 errors still applies here.
 
 **** Put It All Together
 
+#+cindex:JSON data
 Now that we've learned about making HTTP responses, let's put it all together.
 Building on the earlier example, we're going to make a server that sends back
 all of the data that was sent to us by the user.  We'll format that data as
@@ -1608,7 +1660,7 @@ JSON using ~JSON.stringify~.
 
 #+caption:Example of a Complete Node HTTP Server
 #+name:simple-node-http-server
-#+begin_src js
+#+begin_src js -n
   const http = require('http');
 
   http.createServer((request, response) => {
@@ -1645,6 +1697,8 @@ JSON using ~JSON.stringify~.
 
 **** Echo Server Example
 
+#+cindex:echo server example
+#+cindex:example of echo server
 Let's simplify the previous example to make a simple echo server, which just
 sends whatever data is received in the request right back in the response.  All
 we need to do is grab the data from the request stream and write that data to
@@ -1695,6 +1749,9 @@ conditions:
 
 {{{heading(Performing Routing)}}}
 
+#+cindex:routing
+#+cindex:express module
+#+cindex:router module
 *Note*: By checking the URL in this way, we're doing a form of "routing".
 Other forms of routing can be as simple as switch statements or as complex as
 whole frameworks like =express=.  If you're looking for something that does
@@ -1702,6 +1759,7 @@ routing and nothing else, try =router=.
 
 {{{heading(Simplified Echo Server using pipe Method}}}
 
+#+cindex:@code{pipe} method
 Great! Now let's take a stab at simplifying this.  Remember, the =request=
 object is a =ReadableStream= and the =response= object is a =WritableStream=.
 That means we can use ~pipe~ to direct data from one to the other.  That's
@@ -1725,17 +1783,19 @@ exactly what we want for an echo server!
 We're not quite done yet though.  As mentioned multiple times in this guide,
 errors can and do happen, and we need to deal with them.
 
+#+cindex:error handling, echo server
+#+cindex:@code{stderr}
 To handle errors on the =request= stream, we'll log the error to =stderr= and
 send a 400 status code to indicate a Bad Request.  In a real-world application,
 though, we'd want to inspect the error to figure out what the correct status
 code and message would be.  As usual with errors, you should consult the Error
 documentation.
 
-On the response, we'll just log the error to stderr.
+On the response, we'll just log the error to =stderr=.
 
 #+caption:Complete Node HTTP Echo Server with Error Handling
 #+name:node-http-echo-server-with-error-handling
-#+begin_src js
+#+begin_src js -n
   const http = require('http');
 
   http.createServer((request, response) => {
@@ -1894,6 +1954,12 @@ Copyright {{{noindent}}}\copy 2019 {{{author}}} {{{version}}}
 :unnumbered: t
 :END:
 #+texinfo:@listoffloats Table
+
+* Listings
+:PROPERTIES:
+:unnumbered: t
+:END:
+#+texinfo: @listoffloats Listing
 
 * Programs
 :PROPERTIES:
