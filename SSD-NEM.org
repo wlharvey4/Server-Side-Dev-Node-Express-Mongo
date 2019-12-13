@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-12 14:27
+#+date:2019-12-13 06:50
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.15
+#+macro:version Version 0.0.16
 
 #+texinfo: @insertcopying
 
@@ -1321,6 +1321,89 @@ commands:
 
 - [[http://getpostman.com/][Postman]]
 
+*** Guide---Anatomy of an HTTP Transaction
+:PROPERTIES:
+:url:      https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
+:header-args: :eval no
+:END:
+
+{{{heading(Purpose)}}}
+
+The purpose of this guide is to impart a solid understanding of the process of
+Node.js HTTP handling.
+
+{{{heading(Prerequisites)}}}
+
+We'll assume that you know, in a general sense, how HTTP requests work,
+regardless of language or programming environment.  We'll also assume a bit of
+familiarity with Node.js EventEmitters and Streams.
+
+**** Create the Server
+Any node web server application will at some point have to create a web server
+object.  This is done by using ~createServer~.
+
+#+begin_src js
+  const http = require('http');
+
+  const server = http.createServer((request, response) => {
+    // magic happens here!
+  });
+#+end_src
+
+{{{subheading(Request Handler)}}}
+
+The function that's passed in to ~createServer~ is called once for every HTTP
+request that's made against that server, so it's called the /request handler/.
+
+{{{subheading(Server Object)}}}
+
+In fact, the =Server= object returned by ~createServer~ is an =EventEmitter=,
+and what we have here is just shorthand for creating a =server= object and then
+adding the =listener= later.
+
+{{{subheading(Adding a Listener Explicitly)}}}
+
+#+begin_src js
+  const server = http.createServer();
+  server.on('request', (request, response) => {
+    // the same kind of magic happens here!
+  });
+#+end_src
+
+{{{subheading(HTTP Requests and the =request= and =response= Objects)}}}
+
+When an HTTP request hits the server, node calls the request handler function
+with a few handy objects for dealing with the transaction, =request= and
+=response=.  We'll get to those shortly.
+
+{{{subheading(The Listen Method)}}}
+
+In order to actually serve requests, the ~listen~ method needs to be called on
+the =server= object.  In most cases, all you'll need to pass to ~listen~ is the
+port number you want the server to listen on.  There are some other options
+too, so consult the [[https://nodejs.org/api/http.html][API reference]].
+
+**** Method-URL-Headers
+
+**** Request Body
+
+**** About Errors
+
+**** So Far
+
+**** HTTP Status Codes
+
+**** Setting Response Headers
+
+**** Explicitly Sending Header Data
+
+**** Sending Response Body
+
+**** More About Errors
+
+**** All Together
+
+**** Echo Server Example
 ** Introduction to Express
 
 {{{heading(Objectives and Outcomes)}}}
