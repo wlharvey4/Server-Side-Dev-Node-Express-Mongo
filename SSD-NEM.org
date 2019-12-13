@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-13 07:22
+#+date:2019-12-13 07:38
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.17
+#+macro:version Version 0.0.18
 
 #+texinfo: @insertcopying
 
@@ -1644,6 +1644,140 @@ JSON using ~JSON.stringify~.
 #+end_src
 
 **** Echo Server Example
+
+Let's simplify the previous example to make a simple echo server, which just
+sends whatever data is received in the request right back in the response.  All
+we need to do is grab the data from the request stream and write that data to
+the response stream, similar to what we did previously.
+
+#+begin_src js
+  const http = require('http');
+
+  http.createServer((request, response) => {
+    let body = [];
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    }).on('end', () => {
+      body = Buffer.concat(body).toString();
+      response.end(body);
+    });
+  }).listen(8080);
+#+end_src
+
+Now let's tweak this.  We want to only send an echo under the following
+conditions:
+
+- The request method is =POST=.
+
+- The URL is ~/echo~.
+
+- In any other case, we want to simply respond with a 404.
+
+
+#+begin_src js
+  const http = require('http');
+
+  http.createServer((request, response) => {
+    if (request.method === 'POST' && request.url === '/echo') {
+      let body = [];
+      request.on('data', (chunk) => {
+        body.push(chunk);
+      }).on('end', () => {
+        body = Buffer.concat(body).toString();
+        response.end(body);
+      });
+    } else {
+      response.statusCode = 404;
+      response.end();
+    }
+  }).listen(8080);
+#+end_src
+
+{{{heading(Performing Routing)}}}
+
+*Note*: By checking the URL in this way, we're doing a form of "routing".
+Other forms of routing can be as simple as switch statements or as complex as
+whole frameworks like =express=.  If you're looking for something that does
+routing and nothing else, try =router=.
+
+{{{heading(Simplified Echo Server using pipe Method}}}
+
+Great! Now let's take a stab at simplifying this.  Remember, the =request=
+object is a =ReadableStream= and the =response= object is a =WritableStream=.
+That means we can use ~pipe~ to direct data from one to the other.  That's
+exactly what we want for an echo server!
+
+#+begin_src js
+  const http = require('http');
+
+  http.createServer((request, response) => {
+    if (request.method === 'POST' && request.url === '/echo') {
+      request.pipe(response);
+    } else {
+      response.statusCode = 404;
+      response.end();
+    }
+  }).listen(8080);
+#+end_src
+
+{{{heading(Dealing with Errors)}}}
+
+We're not quite done yet though.  As mentioned multiple times in this guide,
+errors can and do happen, and we need to deal with them.
+
+To handle errors on the =request= stream, we'll log the error to =stderr= and
+send a 400 status code to indicate a Bad Request.  In a real-world application,
+though, we'd want to inspect the error to figure out what the correct status
+code and message would be.  As usual with errors, you should consult the Error
+documentation.
+
+On the response, we'll just log the error to stderr.
+
+#+caption:Complete Node HTTP Echo Server with Error Handling
+#+name:node-http-echo-server-with-error-handling
+#+begin_src js
+  const http = require('http');
+
+  http.createServer((request, response) => {
+    request.on('error', (err) => {
+      console.error(err);
+      response.statusCode = 400;
+      response.end();
+    });
+    response.on('error', (err) => {
+      console.error(err);
+    });
+    if (request.method === 'POST' && request.url === '/echo') {
+      request.pipe(response);
+    } else {
+      response.statusCode = 404;
+      response.end();
+    }
+  }).listen(8080);
+#+end_src
+
+**** Summary of Node HTTP Module
+We've now covered most of the basics of handling HTTP requests.  At this point,
+you should be able to:
+
+- Instantiate an HTTP server with a request handler function, and have it
+  listen on a port.
+
+- Get headers, URL, method and body data from request objects.
+
+- Make routing decisions based on URL and/or other data in request objects.
+
+- Send headers, HTTP status codes and body data via response objects.
+
+- Pipe data from request objects and to response objects.
+
+- Handle stream errors in both the request and response streams.
+
+
+From these basics, Node.js HTTP servers for many typical use cases can be
+constructed.  There are plenty of other things these APIs provide, so be sure
+to read through the API docs for =EventEmitters=, =Streams=, and =HTTP=.
+
 ** Introduction to Express
 
 {{{heading(Objectives and Outcomes)}}}
