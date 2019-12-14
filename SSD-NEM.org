@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 08:53
+#+date:2019-12-14 15:18
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.24
+#+macro:version Version 0.0.25
 
 #+texinfo: @insertcopying
 
@@ -1872,7 +1872,6 @@ similar functionality as implemented by the HTTP module based servers in the
 previous exercise.  At the end of this exercise, you will be able to:
 
 - Implement a simple web server using Express framework
-
 - Implement a web server that serves static content
 
 **** Implement a Simple Web Server Using Express
@@ -1911,6 +1910,8 @@ previous exercise.  At the end of this exercise, you will be able to:
     }
   #+END_SRC
 
+  #+RESULTS: node-express/package.json
+
 - Then, install the Express framework in the folder by typing the following at
   the prompt:
 
@@ -1926,7 +1927,7 @@ previous exercise.  At the end of this exercise, you will be able to:
   #+name:node-express-index.js
   #+BEGIN_SRC js
     const express = require('express'),
-         http = require('http');
+          http = require('http');
 
     const hostname = 'localhost';
     const port = 3000;
@@ -1947,6 +1948,8 @@ previous exercise.  At the end of this exercise, you will be able to:
       console.log(`Server running at http://${hostname}:${port}/`);
     });
   #+END_SRC
+
+  #+RESULTS: node-express-index.js
 
 - Start the server by typing the following at the prompt, and then interact
   with the server:
@@ -1979,6 +1982,8 @@ previous exercise.  At the end of this exercise, you will be able to:
     . . .
   #+END_SRC
 
+  #+RESULTS:
+
 - Start the server and interact with it and observe the behavior.
 
 - Do a Git commit with the message "Express Serve Static Files".
@@ -2007,7 +2012,6 @@ will use the Express framework, and the Express router to implement the server.
 At the end of this exercise, you will be able to:
 
 - Use application routes in the Express framework to support REST API
-
 - Use the Express Router in Express framework to support REST API
 
 **** Setting Up a REST API
@@ -2077,6 +2081,8 @@ At the end of this exercise, you will be able to:
     . . .
   #+END_SRC
 
+  #+RESULTS: node-express-index.js-using-express-router
+
 - Start the server and interact with it from the browser/postman.
 
 - Do a Git commit with the message "Express Simple REST".
@@ -2088,6 +2094,7 @@ At the end of this exercise, you will be able to:
 - Create a new file named ~dishRouter.js~ in the ~routes~ folder and add the
   following code to it:
 
+  #+name:node-express-routes-dishRouter.js
   #+BEGIN_SRC js
     const express = require('express');
     const bodyParser = require('body-parser');
@@ -2119,11 +2126,12 @@ At the end of this exercise, you will be able to:
     module.exports = dishRouter;
   #+END_SRC
 
+  #+RESULTS: node-express-routes-dishRouter.js
+
 - Update ~index.js~ as follows:
 
   #+BEGIN_SRC js
     . . .
-
 
     const dishRouter = require('./routes/dishRouter');
 
@@ -2131,6 +2139,8 @@ At the end of this exercise, you will be able to:
 
     . . .
   #+END_SRC
+
+  #+RESULTS:
 
 - Start the server and interact with it and see the result.
 
@@ -2186,6 +2196,16 @@ So let's understand Express from the bottom, with Node.
 
 **** Bottom Layer---Node’s HTTP Server
 ** Assignment 1---Node Modules Express and REST API
+:PROPERTIES:
+:header-args: :eval never-export
+:END:
+
+To execute this assignment from within the Org buffer, type
+=org-babel-execute-buffer=:
+
+: C-c C-v b
+: C-c C-v t
+
 In this assignment you will continue the exploration of Node modules, Express
 and the REST API.  You will design two new express routers to support REST API
 end points for promotions and leadership.
@@ -2258,9 +2278,9 @@ following:
 2. Use the Node Modules:
 
    - http
-   - express
-   - morgan
-   - body-parser
+   - express@4.16.3
+   - morgan@1.9.0
+   - body-parser@1.18.3
 
 3. Use the following network parameters:
 
@@ -2268,12 +2288,65 @@ following:
    - Port :: 3000
 
 
-#+BEGIN_SRC sh :results output :exports never-export
+#+BEGIN_SRC sh :results silent
 mkdir -p assignments/week-1/node-express/public
 mkdir -p assignments/week-1/node-express/routes
 cd assignments/week-1/node-express
 yarn init -yp
+yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 #+END_SRC
+
+#+begin_src js :results output :dir assignments/week-1/node-express
+  const fs = require('fs');
+  let package = JSON.parse(fs.readFileSync('package.json'));
+  package.scripts = {start: 'node index.js'};
+  fs.writeFileSync('package.json', JSON.stringify(package, null, 2));
+#+end_src
+
+#+RESULTS:
+
+#+begin_src js :tangle assignments/week-1/node-express/index.js :eval no :noweb yes :results silent
+  /* assignments/week-1/node-express/index.js */
+
+  <<node-express-index.js-imports>>
+  <<node-express-index.js-app>>
+  <<node-express-index.js-server>>
+
+#+end_src
+
+{{{subheading(Node Express index.js Imports)}}}
+
+#+name:node-express-index.js-imports
+#+begin_src js :eval no :results silent
+  const fs = require('fs'),
+        path = require('path'),
+        http = require('http'),
+        express = require('express'),
+        bodyParser = require('body-parser'),
+        morgan = require('morgan');
+
+#+end_src
+
+{{{subheading(Node Express index.js Application)}}}
+
+#+name:node-express-index.js-app
+#+begin_src js :eval no :results silent
+  const hostname = 'localhost',
+        port = 3000;
+  const app = express();
+
+  app.use(bodyParser.json());
+  app.use(morgan('dev'));
+  app.use(express.static(__dirname + '/public'));
+#+end_src
+
+#+name:node-express-index.js-server
+#+begin_src js :eval no :results silent
+  const server = http.createServer(app)
+        .listen(port, hostname, () => {
+            console.log(`Express Server '${hostname}' listening on port ${port}...`);
+        });
+#+end_src
 
 {{{subheading(Task 2: Implement an Express Router to Support REST API for Promotions)}}}
 
