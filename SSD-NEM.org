@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 07:34
+#+date:2019-12-14 08:05
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.20
+#+macro:version Version 0.0.21
 
 #+texinfo: @insertcopying
 
@@ -1860,6 +1860,124 @@ this lesson, you will be able to:
 *** Exercise---Introduction to Express
 
 - [[file:resources/week_1/lecture_17/index.mp4]]
+
+{{{heading(Objectives)}}}
+
+In this exercise, you will make use of the Express framework to implement
+similar functionality as implemented by the HTTP module based servers in the
+previous exercise.  At the end of this exercise, you will be able to:
+
+- Implement a simple web server using Express framework
+
+- Implement a web server that serves static content
+
+**** Implement a Simple Web Server Using Express
+
+- Create a folder named ~node-express~ in the NodeJS folder and move to that
+  folder.
+
+  : mkdir node-express
+
+- Copy the ~public~ folder from ~node-http~ to this folder.
+
+  : cp node-http/public node-express/public
+
+- At the prompt, type the following to initialize a ~package.json~ file in the
+  ~node-express~ folder:
+
+  : npm init
+
+- Accept the standard defaults suggested until you end up with a ~package.json~
+  file containing the following:
+
+  #+caption:Node Express Package Manifest
+  #+name:node-express/package.json
+  #+BEGIN_SRC js
+    {
+      "name": "node-express",
+      "version": "1.0.0",
+      "description": "Node Express Examples",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index"
+      },
+      "author": "Jogesh Muppala",
+      "license": "ISC"
+    }
+  #+END_SRC
+
+- Then, install the Express framework in the folder by typing the following at
+  the prompt:
+
+  : npm install express@4.16.3 --save
+
+- Create a file named ~.gitignore~ and add the following to it:
+
+  : node_modules
+
+- Create a file named ~index.js~ and add the following code to it:
+
+  #+caption: Node Express Index.js File
+  #+name:node-express-index.js
+  #+BEGIN_SRC js
+    const express = require('express'),
+         http = require('http');
+
+    const hostname = 'localhost';
+    const port = 3000;
+
+    const app = express();
+
+    app.use((req, res, next) => {
+      console.log(req.headers);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end('<html><body><h1>This is an Express Server</h1></body></html>');
+
+    });
+
+    const server = http.createServer(app);
+
+    server.listen(port, hostname, () => {
+      console.log(`Server running at http://${hostname}:${port}/`);
+    });
+  #+END_SRC
+
+- Start the server by typing the following at the prompt, and then interact
+  with the server:
+
+  : npm start
+
+- Initialize a Git repository, add the files and do a Git commit with the
+  message "Express Example".
+
+**** Implement a Web Server Serving Static Content
+
+- Install ~morgan~ by typing the following at the prompt.  Morgan is used for
+  logging purposes:
+
+  : npm install morgan@1.9.0 --save
+
+- Update ~index.js~ as follows:
+
+  #+BEGIN_SRC js
+    . . .
+
+    const morgan = require('morgan');
+
+    . . .
+
+    app.use(morgan('dev'));
+
+    app.use(express.static(__dirname + '/public'));
+
+    . . .
+  #+END_SRC
+
+- Start the server and interact with it and observe the behavior.
+
+- Do a Git commit with the message "Express Serve Static Files".
 
 *** Brief Representational State Transfer---REST
 
