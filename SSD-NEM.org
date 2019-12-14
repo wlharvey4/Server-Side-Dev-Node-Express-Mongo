@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 08:28
+#+date:2019-12-14 08:53
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.23
+#+macro:version Version 0.0.24
 
 #+texinfo: @insertcopying
 
@@ -1864,6 +1864,7 @@ this lesson, you will be able to:
 
 - [[file:resources/week_1/lecture_17/index.mp4]]
 
+
 {{{heading(Objectives)}}}
 
 In this exercise, you will make use of the Express framework to implement
@@ -2001,9 +2002,9 @@ previous exercise.  At the end of this exercise, you will be able to:
 
 {{{heading(Objectives and Outcomes)}}}
 
-In this exercise, you will develop a web server that exports a REST API. You
-will use the Express framework, and the Express router to implement the
-server. At the end of this exercise, you will be able to:
+In this exercise, you will develop a web server that exports a REST API.  You
+will use the Express framework, and the Express router to implement the server.
+At the end of this exercise, you will be able to:
 
 - Use application routes in the Express framework to support REST API
 
@@ -2209,7 +2210,7 @@ update the server:
 The REST API for our Angular and Ionic/Cordova application that we built in the
 previous courses requires us to support the following REST API end points:
 
-1. http://localhost:3000/dishes/:dishId
+1. http://localhost:3000/dishes and http://localhost:3000/dishes/:dishId
 
 2. http://localhost:3000/promotions and http://localhost:3000/promotions/:promoId
 
@@ -2223,11 +2224,11 @@ API for the ~dishes~ route in the previous exercise.
 
 *** Tasks---Week 1 Assignment
 
-This assignment requires you to complete the following three tasks. Detailed
+This assignment requires you to complete the following three tasks.  Detailed
 instructions for each task are given below.
 
 
-{{{subheading(Task 1: Implement Router to Support REST API for Dishes)}}}
+{{{subheading(Task 1: Implement an Express Router to Support REST API for Dishes)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the dishes.  You can reuse all the code that
@@ -2238,7 +2239,43 @@ following:
   for the ~/dishes/:dishId~ REST API end point.
 
 
-{{{subheading(Task 2: Implement Router to Support REST API for Promotions)}}}
+{{{subheading(Task 1: Implementation)}}}
+
+1. Create a folder structure:
+
+   - Assignments
+     - Week-1
+       - node-express/
+         - package.json
+         - index.js
+         - public/
+           - index.html
+         - routes/
+           - dishRouter.js
+           - promoRouter.js
+           - leaderRouter.js
+
+2. Use the Node Modules:
+
+   - http
+   - express
+   - morgan
+   - body-parser
+
+3. Use the following network parameters:
+
+   - Host :: localhost
+   - Port :: 3000
+
+
+#+BEGIN_SRC sh :results output :exports never-export
+mkdir -p assignments/week-1/node-express/public
+mkdir -p assignments/week-1/node-express/routes
+cd assignments/week-1/node-express
+yarn init -yp
+#+END_SRC
+
+{{{subheading(Task 2: Implement an Express Router to Support REST API for Promotions)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the promotions.  To do this, you need to
@@ -2251,7 +2288,7 @@ complete the following:
   mount it on the ~/promotions~ route.
 
 
-{{{subheading(Task 3: Implement Router to Support REST API for Leaders)}}}
+{{{subheading(Task 3: Implement an Express Router to Support REST API for Leaders)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the leaders.  To do this, you need to
@@ -2262,7 +2299,6 @@ complete the following:
 
 - Require the Node module you create above within your Express application and
   mount it on the ~/leaders~ route.
-
 
 *** Review Criteria
 
