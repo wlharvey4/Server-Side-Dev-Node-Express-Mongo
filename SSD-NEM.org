@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 08:16
+#+date:2019-12-14 08:28
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.22
+#+macro:version Version 0.0.23
 
 #+texinfo: @insertcopying
 
@@ -1138,6 +1138,9 @@ commands:
 4. =yarn start=  to start the ~http~ server
 5. =open localhost:3000= to open a browser and hit the server
 
+
+{{{heading(Exercise Steps)}}}
+
 - Create a folder named ~node-http~ in the NodeJS folder and move into the
   folder.
 
@@ -2186,9 +2189,7 @@ In this assignment you will continue the exploration of Node modules, Express
 and the REST API.  You will design two new express routers to support REST API
 end points for promotions and leadership.
 
-{{{heading(Step-By-Step Assignment Instructions)}}}
-
-{{{subheading(Assignment Overview)}}}
+{{{heading(Assignment Overview)}}}
 
 At the end of this assignment, you should have completed the following tasks to
 update the server:
@@ -2203,7 +2204,7 @@ update the server:
   leaders REST API.
 
 
-{{{subheading(Assignment Requirements)}}}
+{{{heading(Assignment Requirements)}}}
 
 The REST API for our Angular and Ionic/Cordova application that we built in the
 previous courses requires us to support the following REST API end points:
@@ -2220,22 +2221,24 @@ endpoints mentioned above, including supporting the use of route parameters to
 identify a specific promotion and leader.  We have already constructed the REST
 API for the ~dishes~ route in the previous exercise.
 
+*** Tasks---Week 1 Assignment
+
 This assignment requires you to complete the following three tasks. Detailed
 instructions for each task are given below.
 
 
-{{{subheading(Task 1)}}}
+{{{subheading(Task 1: Implement Router to Support REST API for Dishes)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the dishes.  You can reuse all the code that
 you implemented in the previous exercise.  To do this, you need to complete the
 following:
 
-- Update the Node module named ~dishRouter.js~ to implements the Express router
+- Update the Node module named ~dishRouter.js~ to implement the Express router
   for the ~/dishes/:dishId~ REST API end point.
 
 
-{{{subheading(Task 2)}}}
+{{{subheading(Task 2: Implement Router to Support REST API for Promotions)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the promotions.  To do this, you need to
@@ -2248,7 +2251,7 @@ complete the following:
   mount it on the ~/promotions~ route.
 
 
-{{{subheading(Task 3)}}}
+{{{subheading(Task 3: Implement Router to Support REST API for Leaders)}}}
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the leaders.  To do this, you need to
@@ -2261,31 +2264,31 @@ complete the following:
   mount it on the ~/leaders~ route.
 
 
-{{{heading(Review Criterial)}}}
+*** Review Criteria
 
 Upon completion of the assignment, your submission will be reviewed based on
 the following criteria:
 
-{{{subheading(Task 1)}}}
+{{{subheading(Task 1: Dishes Endpoint)}}}
 
-- The REST API supports GET, PUT, POST and DELETE operations on /dishes/:dishId
-  end point.
+- The REST API supports =GET=, =PUT=, =POST= and =DELETE= operations on
+  ~/dishes/:dishId~ end point.
 
 
-{{{subheading(Task 2)}}}
+{{{subheading(Task 2: Promotions Endpoint)}}}
 
-- The new Node module, promoRouter is implemented and used within your server
-  to support the /promotions end point.
+- The new Node module, =promoRouter= is implemented and used within your server
+  to support the ~/promotions~ end point.
 
 - The REST API supports =GET=, =PUT=, =POST= and =DELETE= operations on
   ~/promotions~ and =GET=, =PUT=, =POST= and =DELETE= operations on
   ~/promotions/:promoId~ end points.
 
 
-{{{subheading(Task 3)}}}
+{{{subheading(Task 3: Leaders Endpoint)}}}
 
-- The new Node module, leaderRouter is implemented and used within your server
-  to support the /leaders end point.
+- The new Node module, =leaderRouter= is implemented and used within your server
+  to support the ~/leaders~ end point.
 
 - The REST API supports =GET, =PUT=, =POST= and =DELETE= operations on
   ~/leadership~ and =GET=, =PUT=, =POST= and DELETE= operations on
