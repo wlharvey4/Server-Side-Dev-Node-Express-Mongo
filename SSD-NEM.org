@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 17:18
+#+date:2019-12-14 17:59
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.28
+#+macro:version Version 0.0.29
 
 #+texinfo: @insertcopying
 
@@ -2200,11 +2200,10 @@ So let's understand Express from the bottom, with Node.
 :header-args: :eval never-export
 :END:
 
-To execute this assignment from within the Org buffer, type
-=org-babel-execute-buffer=:
+To execute this assignment from within the Org buffer, type:
 
-: C-c C-v b
-: C-c C-v t
+: C-c C-v b (org-babel-execute-buffer)
+: C-c C-v t (orb-babel-tangle)
 
 In this assignment you will continue the exploration of Node modules, Express
 and the REST API.  You will design two new express routers to support REST API
@@ -2307,11 +2306,15 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 #+begin_src js :tangle assignments/week-1/node-express/index.js :eval no :noweb yes :results silent
   /* assignments/week-1/node-express/index.js */
 
+  /* APP & SERVER */
+
   <<node-express-index.js-imports>>
   <<node-express-index.js-app>>
   <<node-express-index.js-server>>
   <<node-express-index.js-home>>
+
   /* ROUTERS */
+
   <<node-express-index.js-routers-dishRouter>>
   <<node-express-index.js-routers-promoRouter>>
   <<node-express-index.js-routers-leaderRouter>>
@@ -2335,22 +2338,23 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 #+name:node-express-index.js-app
 #+begin_src js :eval no :results silent
-  const hostname = 'localhost',
-        port = 3000;
   const app = express();
-
-  app.use(bodyParser.json());
-  app.use(morgan('dev'));
-  app.use(express.static(__dirname + '/public'));
+  app
+      .use(bodyParser.json())
+      .use(morgan('dev'))
+      .use(express.static(__dirname + '/public'));
 
 #+end_src
 
 #+name:node-express-index.js-server
 #+begin_src js :eval no :results silent
-  const server = http.createServer(app)
-        .listen(port, hostname, () => {
-            console.log(`Express Server '${hostname}' listening on port ${port}...`);
-        });
+  const hostname = 'localhost',
+        port = 3000,
+
+        server = http.createServer(app)
+            .listen(port, hostname, () => {
+                console.log(`Express Server '${hostname}' listening on port ${port}...`);
+            });
 
 #+end_src
 
@@ -2358,14 +2362,17 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 #+name:node-express-index.js-routers-dishRouter
 #+begin_src js :eval no :noweb yes
+  /* Router: dishRouter */
   const dishRouter = require('./routes/dishRouter');
   app.use('/dishes', dishRouter);
+
 #+end_src
 
 {{{subheading(Index.js Home}}}
 
 #+name:node-express-index.js-home
 #+begin_src js :eval no
+  /* HOME ROUTE */
   app.get('/', (req, res) => {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/plain');
@@ -2490,8 +2497,10 @@ complete the following:
 
   #+name:node-express-index.js-routers-promoRouter
   #+begin_src js :eval no :noweb yes
+    /* Router: promoRouter */
     const promoRouter = require('./routes/promoRouter');
     app.use('/promotions', promoRouter);
+
   #+end_src
 
 **** Task 3---Implement an Express Router to Support REST API for Leaders
@@ -2503,8 +2512,74 @@ complete the following:
 - Create a Node module named ~leaderRouter.js~ that implements the Express
   router for the ~/leaders~ and ~/leaders/:leaderId~ REST API end points.
 
+  #+name:node-express-router-leaderRouter.js
+  #+begin_src js :eval no :tangle assignments/week-1/node-express/routes/leaderRouter.js
+    /* assignments/week-1/node-express/routes/leaderRouter.js */
+
+    const express = require('express');
+    const bodyParser = require('body-parser');
+
+    const leaderRouter = express.Router();
+
+    leaderRouter.use(bodyParser.json());
+
+    leaderRouter
+        .route('/')
+        .all((req, res, next) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/plain');
+            next();
+        })
+
+        .get((req, res, next) => {
+            res.end('Will return all leaders to you');
+        })
+
+        .post((req, res, next) => {
+            res.end(`Will post new leader: ${req.body.leaderName} and ${req.body.leaderId}`);
+        })
+
+        .put((req, res, next) => {
+            res.end('PUT opeation not supported on /leaders');
+        })
+
+        .delete((req, res, next) => {
+            res.end(`Will delete all leaders`);
+        });
+
+    leaderRouter
+        .route('/:leaderId')
+
+        .get((req, res, next) => {
+            res.end(`Will return info for leader id ${req.params.leaderId}`);
+        })
+
+        .post((req, res, next) => {
+            res.end(`Will add the leader id ${req.params.leaderId}`);
+        })
+
+        .put((req, res, next) => {
+            res.end(`Will update the leader id ${req.params.leaderId}`);
+        })
+
+        .delete((req, res, next) => {
+            res.end(`Will delete the leader id ${req.params.leaderId}`);
+        });
+
+    module.exports = leaderRouter;
+
+  #+end_src
+
 - Require the Node module you create above within your Express application and
   mount it on the ~/leaders~ route.
+
+  #+name:node-express-index.js-routers-leaderRouter
+  #+begin_src js :eval no
+    /* Router: leaderRouter */
+    const leaderRouter = require('./routes/leaderRouter');
+    app.use('/leaders', leaderRouter);
+
+  #+end_src
 
 *** Review Criteria
 
