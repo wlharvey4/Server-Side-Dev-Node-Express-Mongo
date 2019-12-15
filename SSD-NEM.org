@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 16:39
+#+date:2019-12-14 17:18
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.27
+#+macro:version Version 0.0.28
 
 #+texinfo: @insertcopying
 
@@ -2247,7 +2247,6 @@ API for the ~dishes~ route in the previous exercise.
 This assignment requires you to complete the following three tasks.  Detailed
 instructions for each task are given below.
 
-
 **** Task 1---Implement an Express Router to Support REST API for Dishes
 
 In this task you will create a separate Node module implementing an Express
@@ -2313,7 +2312,9 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
   <<node-express-index.js-server>>
   <<node-express-index.js-home>>
   /* ROUTERS */
-  <<node-express-index.js-routers>>
+  <<node-express-index.js-routers-dishRouter>>
+  <<node-express-index.js-routers-promoRouter>>
+  <<node-express-index.js-routers-leaderRouter>>
 
 #+end_src
 
@@ -2355,12 +2356,10 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 {{{subheading(Index.js Routers}}}
 
-#+name:node-express-index.js-routers
-#+begin_src js :eval no
-  const dishRouter = require('./routes/dishRouter'),
-        promoRouter = require('./routes/promoRouter');
+#+name:node-express-index.js-routers-dishRouter
+#+begin_src js :eval no :noweb yes
+  const dishRouter = require('./routes/dishRouter');
   app.use('/dishes', dishRouter);
-  app.use('/promotions', promoRouter);
 #+end_src
 
 {{{subheading(Index.js Home}}}
@@ -2375,7 +2374,7 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 #+end_src
 
-{{{subheading(Node Express Routers)}}}
+{{{subheading(Node Express Dish Router)}}}
 
 #+name:node-express-routers-dishRouter.js
 #+begin_src js :eval no :tangle assignments/week-1/node-express/routes/dishRouter.js
@@ -2445,7 +2444,7 @@ complete the following:
             res.end('Will send all the promotions your way!');
         })
         .post((req, res, next) => {
-            res.end(`Will add the promotion ${req.body.promotion} with promotion id ${req.body.promotionid}`);
+            res.end(`Will add the promotion ${req.body.promotion} with promo id ${req.body.promoid}`);
         })
         .put((req, res, next) => {
             res.statusCode = 403;
@@ -2455,6 +2454,31 @@ complete the following:
             res.end('Will delete all promotions');
         });
 
+
+    promoRouter
+        .route('/:promoid')
+        .all((req, res, next) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/plain');
+            next();
+        })
+
+        .get((req, res, next) => {
+            res.end(`Will get the promotion related to ${req.params.promoid}`);
+        })
+
+        .post((req, res, next) => {
+            res.end(`Will add the promotion for promoid ${req.params.promoid}`);
+        })
+
+        .put((req, res, next) => {
+            res.end(`Will update the promotion for promoid ${req.params.promoid}`);
+        })
+
+        .delete((req, res, next) => {
+            res.end(`Will delete the promotion for promoid ${req.params.promoid}`);
+        });
+
     module.exports = promoRouter;
 
   #+end_src
@@ -2462,6 +2486,13 @@ complete the following:
 - Require the Node module you create above within your Express application and
   mount it on the ~/promotions~ route.
 
+  {{{subheading(Node Express Promotions Router)}}}
+
+  #+name:node-express-index.js-routers-promoRouter
+  #+begin_src js :eval no :noweb yes
+    const promoRouter = require('./routes/promoRouter');
+    app.use('/promotions', promoRouter);
+  #+end_src
 
 **** Task 3---Implement an Express Router to Support REST API for Leaders
 
@@ -2504,6 +2535,7 @@ the following criteria:
 - The REST API supports =GET, =PUT=, =POST= and =DELETE= operations on
   ~/leadership~ and =GET=, =PUT=, =POST= and DELETE= operations on
   ~/leaders/:leaderId~ end points.
+
 * Week 2---Persistent Storage with MongoDB
 :PROPERTIES:
 :length:   9h 12m
