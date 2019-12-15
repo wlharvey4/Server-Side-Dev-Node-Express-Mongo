@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 16:13
+#+date:2019-12-14 16:39
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.26
+#+macro:version Version 0.0.27
 
 #+texinfo: @insertcopying
 
@@ -2248,7 +2248,7 @@ This assignment requires you to complete the following three tasks.  Detailed
 instructions for each task are given below.
 
 
-{{{subheading(Task 1: Implement an Express Router to Support REST API for Dishes)}}}
+**** Task 1---Implement an Express Router to Support REST API for Dishes
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the dishes.  You can reuse all the code that
@@ -2357,8 +2357,10 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 #+name:node-express-index.js-routers
 #+begin_src js :eval no
-  const dishRouter = require('./routes/dishRouter');
+  const dishRouter = require('./routes/dishRouter'),
+        promoRouter = require('./routes/promoRouter');
   app.use('/dishes', dishRouter);
+  app.use('/promotions', promoRouter);
 #+end_src
 
 {{{subheading(Index.js Home}}}
@@ -2388,8 +2390,8 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
         .route('/')
 
         .all((req, res, next) => {
-            resstatusCode = 200;
-            res.setHeader('Content-Type', 'text-plain');
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/plain');
             next();
         })
 
@@ -2413,7 +2415,7 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
   module.exports = dishRouter;
 #+end_src
 
-{{{subheading(Task 2: Implement an Express Router to Support REST API for Promotions)}}}
+**** Task 2---Implement an Express Router to Support REST API for Promotions
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the promotions.  To do this, you need to
@@ -2422,11 +2424,46 @@ complete the following:
 - Create a Node module named ~promoRouter.js~ that implements the Express
   router for the ~/promotions~ and ~/promotions/:promoId~ REST API end points.
 
+  #+name:node-express-router-promoRouter.js
+  #+begin_src js :eval no :tangle assignments/week-1/node-express/routes/promoRouter.js
+    /* assignments/week-1/node-express/routes/promoRouter.js */
+
+    const express = require('express'),
+          bodyParser = require('body-parser');
+
+    const promoRouter = express.Router();
+
+    promoRouter
+        .use(bodyParser.json())
+        .route('/')
+        .all((req, res, next) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/plain');
+            next();
+        })
+        .get((req, res, next) => {
+            res.end('Will send all the promotions your way!');
+        })
+        .post((req, res, next) => {
+            res.end(`Will add the promotion ${req.body.promotion} with promotion id ${req.body.promotionid}`);
+        })
+        .put((req, res, next) => {
+            res.statusCode = 403;
+            res.end('PUT operation not supported on /promotions');
+        })
+        .delete((req, res, next) => {
+            res.end('Will delete all promotions');
+        });
+
+    module.exports = promoRouter;
+
+  #+end_src
+
 - Require the Node module you create above within your Express application and
   mount it on the ~/promotions~ route.
 
 
-{{{subheading(Task 3: Implement an Express Router to Support REST API for Leaders)}}}
+**** Task 3---Implement an Express Router to Support REST API for Leaders
 
 In this task you will create a separate Node module implementing an Express
 router to support the REST API for the leaders.  To do this, you need to
