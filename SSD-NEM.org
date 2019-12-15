@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 20:14
+#+date:2019-12-14 20:28
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.30
+#+macro:version Version 0.0.31
 
 #+texinfo: @insertcopying
 
@@ -2611,7 +2611,9 @@ the following criteria:
   ~/leadership~ and =GET=, =PUT=, =POST= and DELETE= operations on
   ~/leaders/:leaderId~ end points.
 
-* Ideation
+** Ideation
+
+OPTIONAL HONORS CONTENT
 
 {{{heading(Objectives and Outcomes)}}}
 
@@ -2637,7 +2639,7 @@ step you should be able to:
 - Identify other projects that might have similar features and would act as
   exemplars for your project
 
-** Ideation Report Template
+*** Ideation Report Template
 
 {{{heading(Project Title)}}}
 
@@ -2670,7 +2672,7 @@ step you should be able to:
    - Give the links to the websites relevant to your idea, that you listed in
      the section above.
 
-** Ideation Additional Resources
+*** Ideation Additional Resources
 
 - [[https://en.wikipedia.org/wiki/Ideation_(creative_process)][Ideation (creative process)]]
 
@@ -2678,10 +2680,141 @@ step you should be able to:
 
 - [[https://www.freecodecamp.com/][Free Code Camp]]
 
-* Week 2---Persistent Storage with MongoDB
+* Week 2---Data and Persistent Storage with MongoDB
 :PROPERTIES:
 :length:   9h 12m
 :END:
+
+This module looks in detail at data storage with MongoDB, the popular NoSQL
+database.  You will learn first about Express generator for scaffolding an
+Express application.  Then you will learn about MongoDB.  You will learn how to
+interact with MongoDB from a Node application.  Then you will learn the
+Mongoose ODM to create schemas and models, and interact with MongoDB server.
+
+{{{heading(Learning Objectives)}}}
+
+- Demonstrate an understanding of data persistence using a database
+
+- Design persistent data storage based on MongoDB, a NoSQL database
+
+- Develop schemas and models for data storage using Mongoose
+
+- Combine the REST API and the data persistance layer for a full-fledged server
+  implementation
+
+** Express Generator
+
+{{{heading(Objectives and Outcomes)}}}
+
+In this lesson you will learn about Express generator, a scaffolding tool to
+quickly generate an Express application with typical support for routes.  You
+will then build an Express server to support REST API.  At the end of this
+lesson, you will be able to:
+
+- Quickly scaffold out a typical Express application using express-generator
+
+- Build an Express server to support REST API
+
+
+*** Express Generator Video
+
+*** Exercise---Express Generator
+
+{{{heading(Objectives and Outcomes)}}}
+
+In this exercise, you will use the Express generator to scaffold out an Express
+application.  Thereafter you will modify the application to support REST API
+making use of the Node modules that you developed as part of the first
+assignment.  At the end of this exercise, you will be able to:
+
+- Generating an Express application using the express-generator
+
+- Modify the Express application to support the REST API by adding routes
+
+
+**** Installing express-generator
+
+Install express-generator by typing the following at the prompt:[fn:4]
+
+: npm install express-generator@4.16.0 -g
+
+Use ~sudo~ if you are using an OSX or Linux machine.
+
+**** Scaffolding an Express Application
+
+- To scaffold out an Express application, type the following at the prompt:
+
+  : express conFusionServer
+
+- Next, move to the ~conFusionServer~ folder.  Type the following at the
+  command prompt to install all the Node modules:
+
+  : npm install
+
+- You can start the Express server by typing the following at the prompt:
+
+  : npm start
+
+- Add a file named ~.gitignore~ to the project folder and type the following
+  into the file:
+
+  : node_modules
+
+- Initialize a Git repository and do a Git commit with the message "Express
+  Generator".
+
+**** Implementing a REST API
+
+- Now, copy the ~dishRouter.js~, ~promoRouter.js~ and ~leaderRouter.js~ from
+  your first assignment (~node-express/routes~ folder) to the ~routes~ folder
+  within the Express application that you just scaffolded out.
+
+- Furthermore, copy the ~index.html~ and ~aboutus.html~ file from the
+  ~node-express/public~ folder to the ~public~ folder in your new project.
+
+- Then, open the ~app.js~ file and then update the code in there as follows:
+
+  #+name:node-express-generator-rest-api
+  #+BEGIN_SRC js
+    . . .
+
+    var dishRouter = require('./routes/dishRouter');
+    var promoRouter = require('./routes/promoRouter');
+    var leaderRouter = require('./routes/leaderRouter');
+
+    . . .
+
+    app.use('/dishes',dishRouter);
+    app.use('/promotions',promoRouter);
+    app.use('/leaders',leaderRouter);
+
+    . . .
+  #+END_SRC
+
+- Save the changes and run the server.  You can then test the server by sending
+  requests and observing the behavior.
+
+- Do a Git commit with the message "Express Generator REST API".
+
+*** Additional Resources for Express Generator
+
+- [[http://expressjs.com/][Express]]
+
+- [[http://expressjs.com/en/starter/generator.html][Express Generator]]
+
+** MongoDB Introduction
+
+** MongDB and Node
+
+** Mongoose Object Data Modeling
+
+** REST API with Express-MongoDB- and Mongoose
+
+** Assignment 2
+
+** Architecture Design and Software Structure
+
+OPTIONAL HONORS CONTENT
 
 * Week 3---Security and Authentication
 :PROPERTIES:
@@ -2763,3 +2896,7 @@ the body in HTTP responses.
 # eval: (org-indent-mode)
 # eval: (electric-quote-local-mode)
 # End:
+
+[fn:4]Note: You may need to restart your terminal/cmd window in order for the
+express command to be available at the prompt.
+
