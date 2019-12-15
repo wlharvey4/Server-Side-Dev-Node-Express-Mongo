@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 20:28
+#+date:2019-12-15 15:59
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.31
+#+macro:version Version 0.0.32
 
 #+texinfo: @insertcopying
 
@@ -2716,9 +2716,17 @@ lesson, you will be able to:
 - Build an Express server to support REST API
 
 
-*** Express Generator Video
+*** Express Generator Videos
+
+- [[file:resources/week_2/lecture_01/index.mp4][week_2/lecture_01/index.mp4]]
+
+- [[file:resources/week_2/lecture_01/Express_Generator.pdf][week_2/lecture_01/Express_Generator.pdf]]
+
 
 *** Exercise---Express Generator
+
+- [[file:resources/week_2/lecture_02/index.mp4][week_2/lecture_02/index.mp4]]
+
 
 {{{heading(Objectives and Outcomes)}}}
 
