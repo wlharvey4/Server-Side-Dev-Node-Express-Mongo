@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-14 15:18
+#+date:2019-12-14 16:13
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.25
+#+macro:version Version 0.0.26
 
 #+texinfo: @insertcopying
 
@@ -2311,6 +2311,9 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
   <<node-express-index.js-imports>>
   <<node-express-index.js-app>>
   <<node-express-index.js-server>>
+  <<node-express-index.js-home>>
+  /* ROUTERS */
+  <<node-express-index.js-routers>>
 
 #+end_src
 
@@ -2338,6 +2341,7 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
   app.use(bodyParser.json());
   app.use(morgan('dev'));
   app.use(express.static(__dirname + '/public'));
+
 #+end_src
 
 #+name:node-express-index.js-server
@@ -2346,6 +2350,67 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
         .listen(port, hostname, () => {
             console.log(`Express Server '${hostname}' listening on port ${port}...`);
         });
+
+#+end_src
+
+{{{subheading(Index.js Routers}}}
+
+#+name:node-express-index.js-routers
+#+begin_src js :eval no
+  const dishRouter = require('./routes/dishRouter');
+  app.use('/dishes', dishRouter);
+#+end_src
+
+{{{subheading(Index.js Home}}}
+
+#+name:node-express-index.js-home
+#+begin_src js :eval no
+  app.get('/', (req, res) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('You have reached the Dishes API');
+  });
+
+#+end_src
+
+{{{subheading(Node Express Routers)}}}
+
+#+name:node-express-routers-dishRouter.js
+#+begin_src js :eval no :tangle assignments/week-1/node-express/routes/dishRouter.js
+  /* assignments/week-1/node-express/routers/dishRouter.js */
+
+  const express = require('express'),
+        bodyParser = require('body-parser');
+
+  const dishRouter = express.Router();
+
+  dishRouter.use(bodyParser.json())
+        .route('/')
+
+        .all((req, res, next) => {
+            resstatusCode = 200;
+            res.setHeader('Content-Type', 'text-plain');
+            next();
+        })
+
+        .get((req, res, next) => {
+            res.end('Will send all the dishes to you!');
+        })
+
+        .post((req, res, next) => {
+            res.end('Will add the dish: ' + req.body.name + ' with details: ' + req.body.description);
+        })
+
+        .put((req, res, next) => {
+            res.statusCode = 403;
+            res.end('PUT operation not supported on /dishes');
+        })
+
+        .delete((req, res, next) => {
+            res.end('Deleting all dishes');
+        });
+
+  module.exports = dishRouter;
 #+end_src
 
 {{{subheading(Task 2: Implement an Express Router to Support REST API for Promotions)}}}
