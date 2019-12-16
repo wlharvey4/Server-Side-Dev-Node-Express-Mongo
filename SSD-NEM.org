@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-16 13:43
+#+date:2019-12-16 13:48
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.37
+#+macro:version Version 0.0.38
 
 #+texinfo: @insertcopying
 
@@ -2820,17 +2820,16 @@ assignment.  At the end of this exercise, you will be able to:
 *NOTE*: To install this Express application from within the Org buffer, type:
 
 - =C-x n s= :: runs the command ~org-narrow-to-subtree~, which narrows buffer to
-               the current subtree.
+               the current subtree, i.e., this Express Generator Application
 
 - =C-c C-v s= :: runs the command ~org-babel-execute-subtree~, which calls
-                 ‘org-babel-execute-src-block’ on every source block in the
-                 current subtree.  In this subtree, all source blocks are BASH
-                 shell commands, which produce no output because =:results
-                 silent= is set in the =header-args= in the =PROPERTIES= of the
-                 outline heading.
-
-- =C-c C-v t= :: runs the command ~org-babel-tangle~ in the subtree (in the
-                 narrowed subtree)
+                 ‘org-babel-execute-src-block’ on every executable source block
+                 in the current subtree.  In this subtree, all Bash shell
+                 source blocks run executable commands, but produce no output
+                 because =:results silent= is set in the =header-args= in the
+                 =PROPERTIES= of the outline heading.  All JS and HTML source
+                 block evaluations have been disabled in the =header-args=.
+                 There is one emacs-lisp source block that tangles the files.
 
 **** Installing express-generator
 
