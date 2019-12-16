@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-16 13:08
+#+date:2019-12-16 13:43
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.36
+#+macro:version Version 0.0.37
 
 #+texinfo: @insertcopying
 
@@ -2795,7 +2795,9 @@ folder, where you have the various application routes the REST API adopts.
 
 *** Exercise---Express Generator
 :PROPERTIES:
-:header-args: :results silent :eval no-export
+:header-args: :results silent :eval never-export
+:header-args:js: :eval never
+:header-args:html: :eval never
 :END:
 
 - [[file:resources/week_2/lecture_02/index.mp4][week_2/lecture_02/index.mp4]]
@@ -2863,7 +2865,7 @@ To scaffold out an Express application:
 {{{heading(Shell Script to Scaffold Out the Express App using the Generator)}}}
 
 #+name:node-express-generator-scaffold-app
-#+begin_src sh :results silent
+#+begin_src sh
   express conFusionServer
   cd conFusionServer
   npm install
@@ -2880,8 +2882,12 @@ To scaffold out an Express application:
   your first assignment (~node-express/routes~ folder) to the ~routes~ folder
   within the Express application that you just scaffolded out.
 
-  *NOTE*: Use Org ~tangle~ and ~noweb~ to add the source code for the custom
-  routers from the prior week into the ~routes~ folder.
+  *NOTE*: Use Org Babel ~tangle~ and ~noweb~ to add the source code for the
+  custom routers from the prior week into the ~routes~ folder.
+
+  #+begin_src emacs-lisp
+  (org-babel-tangle)
+  #+end_src
 
   #+name:node-express-generator-noweb-tangle-routers
   #+begin_src js :noweb yes :tangle conFusionServer/routes/dishRouter.js
@@ -2898,19 +2904,15 @@ To scaffold out an Express application:
   <<node-express-router-leaderRouter.js>>
   #+end_src
 
-  #+RESULTS: node-express-generator-noweb-tangle-routers
-
 - Furthermore, copy the ~index.html~ and ~aboutus.html~ file from the
   ~node-express/public~ folder to the ~public~ folder in your new project.
 
   #+name:node-express-generator-noweb-tangle-index.html
-  #+header: :eval never
   #+begin_src html :noweb yes :tangle conFusionServer/public/index.html
   <<node-http-index.html>>
   #+end_src
 
   #+name:node-express-generator-add-noweb-tangle-aboutus.html
-  #+header: :eval never
   #+begin_src html :noweb yes :tangle conFusionServer/public/aboutus.html
   <<node-http-aboutus.html>>
   #+end_src
@@ -2918,7 +2920,7 @@ To scaffold out an Express application:
 - Then, open the ~app.js~ file and update the code in there as follows:
 
   #+name:node-express-generator-rest-api
-  #+BEGIN_SRC js :eval never
+  #+BEGIN_SRC js
     . . .
 
     var dishRouter = require('./routes/dishRouter');
@@ -2944,7 +2946,7 @@ To scaffold out an Express application:
     sed -E -i '.bak' -e '
     /var usersRouter = require\(/ a\
         \
-        /* App Router Custom Imports */\
+        /* Import Custom Routers */\
         var dishRouter = require('\''./routes/dishRouter'\'');\
         var promoRouter = require('\''./routes/promoRouter'\'');\
         var leaderRouter = require('\''./routes/leaderRouter'\'');\
@@ -2963,6 +2965,11 @@ To scaffold out an Express application:
   requests and observing the behavior.
 
 - Do a Git commit with the message "Express Generator REST API".
+
+  #+begin_src sh :dir conFusionServer
+  git add .
+  git commit -m "Express Generator REST API"
+  #+end_src
 
 *** Additional Resources for Express Generator
 
