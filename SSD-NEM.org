@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-15 18:05
+#+date:2019-12-16 09:15
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.33
+#+macro:version Version 0.0.34
 
 #+texinfo: @insertcopying
 
@@ -2744,8 +2744,40 @@ lesson, you will be able to:
 
 - [[file:resources/week_2/lecture_01/index.mp4][week_2/lecture_01/index.mp4]]
 
-- [[file:resources/week_2/lecture_01/Express_Generator.pdf][week_2/lecture_01/Express_Generator.pdf]]
+Express Generator is a tool that we will install a command line interface that
+we will install as a global NPM module and it enables us to quickly scaffold
+out an Express application.
 
+Express Generator is a quick scaffolding tool that will help us to quickly
+build up the structure for an Express application with some starting code
+already built and some standard middleware already included into the
+application. And so all that we need to do is install the Express Generator.
+
+With Express Generator, once you have installed the Global API module, you just
+type ~Express~, space, and the name of your Express application that you want
+to start, and this will generate a folder with the name of the application that
+you have typed in.  There are various options available for you to generate
+your Express application.  It can use different kinds of view generators like
+jade, EJS, and so on.
+
+In this course, we will be using Express purely as a server that supports REST
+API.
+
+And once you scaffold out your Express application, you just move into the
+replication and do an NPM install to install all the preconfigured modules that
+are already included in your default Express application and some of the
+middleware that, by default, will be included into your application.  Once that
+is done, then it is just a matter of going in and modifying that generated
+templates to suit your needs.
+
+So you have an ~app.js~ file which is the starting point of your Express
+application and then you have ~package.json~, which obviously contains the
+details because this is a node application.  So this contains all the details
+of the dependencies and so on that will be installed.  Then you have ~public~
+folder, where you put your static resources.  Then you have the ~routes~
+folder, where you have the various application routes the REST API adopts.
+
+- [[file:resources/week_2/lecture_01/Express_Generator.pdf][week_2/lecture_01/Express_Generator.pdf]]
 
 *** Exercise---Express Generator
 
