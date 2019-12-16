@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-16 11:16
+#+date:2019-12-16 13:08
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.35
+#+macro:version Version 0.0.36
 
 #+texinfo: @insertcopying
 
@@ -1247,6 +1247,19 @@ commands:
       <title>This is aboutus.html</title>
       <body>
         <h1>Aboutus.html</h1>
+        <p>This is the contents of the index.html file</p>
+      </body>
+    </html>
+  #+end_src
+
+- Similarly create an ~aboutus.html~ file and add the following code to it:
+
+  #+name:node-http-aboutus.html
+  #+begin_src html :eval never
+    <html>
+      <title>This is aboutus.html</title>
+      <body>
+        <h1>Aboutus.html</h1>
         <p>This is the contents of the aboutus.html file</p>
       </body>
     </html>
@@ -2384,7 +2397,7 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
 
 {{{subheading(Node Express Dish Router)}}}
 
-#+name:node-express-routers-dishRouter.js
+#+name:node-express-router-dishRouter.js
 #+begin_src js :eval no :tangle assignments/week-1/node-express/routes/dishRouter.js
   /* assignments/week-1/node-express/routers/dishRouter.js */
 
@@ -2830,17 +2843,12 @@ To scaffold out an Express application:
 
 - type the following at the prompt:
 
-  #+begin_src sh
-    express conFusionServer
-  #+end_src
+  : express conFusiobServer
 
 - Next, move to the ~conFusionServer~ folder.  Type the following at the
   command prompt to install all the Node modules:
 
-  #+begin_src sh
-    cd conFusionServer
-    yarn install
-  #+end_src
+  : npm install
 
 - You can start the Express server by typing the following at the prompt:
 
@@ -2849,20 +2857,22 @@ To scaffold out an Express application:
 - Add a file named ~.gitignore~ to the project folder and type the following
   into the file:
 
-  #+begin_src sh :dir conFusionServer
-    touch .gitignore
-    echo 'node_modules
-    ,*.bak' >> .gitignore
-  #+end_src
-
 - Initialize a Git repository and do a Git commit with the message "Express
   Generator".
 
-  #+begin_src sh :dir conFusionServer
-    git init
-    git add .
-    git commit -m "Express Generator"
-  #+end_src
+{{{heading(Shell Script to Scaffold Out the Express App using the Generator)}}}
+
+#+name:node-express-generator-scaffold-app
+#+begin_src sh :results silent
+  express conFusionServer
+  cd conFusionServer
+  npm install
+  echo 'node_modules
+  *.bak' > .gitignore
+  git init
+  git add .
+  git commit -m 'Express Generator'
+#+end_src
 
 **** Implementing a REST API
 
@@ -2875,24 +2885,40 @@ To scaffold out an Express application:
 
   #+name:node-express-generator-noweb-tangle-routers
   #+begin_src js :noweb yes :tangle conFusionServer/routes/dishRouter.js
-  <<node-express-routers-dishRouter.js>>
-  <<node-express-routers-promoRouter.js>>
-  <<node-express-routers-leaderRouter.js>>
+  <<node-express-router-dishRouter.js>>
   #+end_src
+
+  #+name:node-express-generator-noweb-tangle-routers
+  #+begin_src js :noweb yes :tangle conFusionServer/routes/promoRouter.js
+  <<node-express-router-promoRouter.js>>
+  #+end_src
+
+  #+name:node-express-generator-noweb-tangle-routers
+  #+begin_src js :noweb yes :tangle conFusionServer/routes/leaderRouter.js
+  <<node-express-router-leaderRouter.js>>
+  #+end_src
+
+  #+RESULTS: node-express-generator-noweb-tangle-routers
 
 - Furthermore, copy the ~index.html~ and ~aboutus.html~ file from the
   ~node-express/public~ folder to the ~public~ folder in your new project.
 
-  #+name:node-express-generator-add-noweb-tangle-index.html
-  #+header: :eval no
+  #+name:node-express-generator-noweb-tangle-index.html
+  #+header: :eval never
   #+begin_src html :noweb yes :tangle conFusionServer/public/index.html
   <<node-http-index.html>>
+  #+end_src
+
+  #+name:node-express-generator-add-noweb-tangle-aboutus.html
+  #+header: :eval never
+  #+begin_src html :noweb yes :tangle conFusionServer/public/aboutus.html
+  <<node-http-aboutus.html>>
   #+end_src
 
 - Then, open the ~app.js~ file and update the code in there as follows:
 
   #+name:node-express-generator-rest-api
-  #+BEGIN_SRC js
+  #+BEGIN_SRC js :eval never
     . . .
 
     var dishRouter = require('./routes/dishRouter');
