@@ -2,9 +2,9 @@
 
 #+title:Server-Side Development with NodeJS, Express, and MongoDB
 #+author:The Hong Kong University of Science and Technology
-#+date:2019-12-15 15:59
+#+date:2019-12-15 18:05
 #+subtitle: {{{version}}} {{{date}}}
-#+macro:version Version 0.0.32
+#+macro:version Version 0.0.33
 
 #+texinfo: @insertcopying
 
@@ -2391,9 +2391,9 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
         bodyParser = require('body-parser');
 
   const dishRouter = express.Router();
+  dishRouter.use(bodyParser.json());
 
-  dishRouter.use(bodyParser.json())
-        .route('/')
+  dishRouter.route('/')
 
         .all((req, res, next) => {
             res.statusCode = 200;
@@ -2417,6 +2417,30 @@ yarn add express@4.16.3 morgan@1.9.0 body-parser@1.18.3
         .delete((req, res, next) => {
             res.end('Deleting all dishes');
         });
+
+  dishRouter.route('/:dishId')
+
+      .all((req, res, next) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'text/plain');
+          next();
+      })
+
+      .get((req, res, next) => {
+          res.end(`Will GET the dish with dishId ${req.params.dishId}`);
+      })
+
+      .post((req, res, next) => {
+          res.end(`Will POST the dish with dishId ${req.params.dishId}`);
+      })
+
+      .put((req, res, next) => {
+          res.end(`Will PUT the dish with dishId ${req.params.dishId}`);
+      })
+
+      .delete((req, res, next) => {
+          res.end(`Will DELETE the dish with dishId ${req.params.dishId}`);
+      });
 
   module.exports = dishRouter;
 #+end_src
